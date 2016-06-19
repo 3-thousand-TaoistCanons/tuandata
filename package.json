@@ -1,0 +1,56 @@
+{
+	"name":"helloworld",
+	"version":"1.0",
+	"cname":"资料库",
+	"icon":"fa-database",
+	"icontype":"fa",
+	"intro":"团队猫资料库",
+	"detail":"@readme.md",
+	"document":"@document.md",
+	"author":"北京云道天成科技有限公司",
+	"homepage":"https://github.com/diancloud/tuandata",
+	"menu": { 
+		"datatype/index": {
+			"name":"资料类型",
+			"controller":"datatype",
+			"action":"index",
+			"permission":"boss,admin,manager"
+		}
+	},
+	"dependencies": {},
+	"injections": {},
+	"api": [
+		"/team/get",
+		"/team/member/list"
+	],
+
+	"register_api": {},
+
+	"setup": {
+
+		"install": {
+			"controller":"setup",
+			"action":"install"
+		},
+
+		"upgrade": {
+			"controller":"setup",
+			"action":"upgrade"
+		},
+
+		"uninstall":{
+			"controller":"setup",
+			"action":"upgrade"
+		},
+
+		"repair": {
+			"controller":"setup",
+			"action":"repair"
+		}
+	}
+}
+
+
+
+
+
