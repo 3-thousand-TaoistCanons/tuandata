@@ -4,7 +4,7 @@
 	"cname":"资料库",
 	"icon":"fa-database",
 	"icontype":"fa",
-	"intro":"团队猫资料库",
+	"intro":"团队猫资料库, 开源、全平台的行业资料管理应用",
 	"detail":"@readme.md",
 	"document":"@document.md",
 	"author":"北京云道天成科技有限公司",
@@ -15,7 +15,13 @@
 			"controller":"datatype",
 			"action":"index",
 			"permission":"boss,admin,manager"
-		}
+		},
+    "setting/index": {
+      "name":"应用选项",
+      "controller":"setting",
+      "action":"index",
+      "permission":"boss,admin,manager"
+    }
 	},
 	"dependencies": {},
 	"injections": {},
@@ -49,8 +55,3 @@
 		}
 	}
 }
-
-
-
-
-
