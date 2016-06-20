@@ -31,13 +31,14 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
                 'js/plugins/jquery-validation/jquery.validate.min.js',
         		'js/plugins/dropzonejs/dropzone.min.js',
         		'js/plugins/cropper/cropper.min.js',
-        		'js/plugins/bootstrap-treeview/bootstrap-treeview.js'
+                'js/plugins/jquery-sortable/sortable.js',
+                'js/plugins/multi-select/js/jquery.multi-select.js'
         	],
-
+            
         	'css'=> [
         		'js/plugins/dropzonejs/dropzone.min.css',
         		'js/plugins/cropper/cropper.css',
-        		'js/plugins/bootstrap-treeview/bootstrap-treeview.css',
+                'js/plugins/multi-select/css/multi-select.css'
         	],
 
             'crumb' => [

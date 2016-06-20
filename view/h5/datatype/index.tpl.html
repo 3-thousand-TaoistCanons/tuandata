@@ -1,1 +1,112 @@
-HELLO INDEX
+<?php use \Tuanduimao\Loader\App as App; ?>
+<!-- Page Content -->
+<div class="content">
+    <div class="col-sm-5 col-lg-3">
+         <div class="collapse navbar-collapse remove-padding" id="inbox-nav">
+            <!-- Inbox Menu -->
+            <div class="block">
+                <div class="block-header bg-gray-lighter">
+                    <ul class="block-options">
+                        <li>
+                            <a  href="<?=APP::R('default','deptpanel')?>"  >
+                                <i class="fa fa-plus"></i> 创建类型
+                            </a>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">资料类型 <span class="badge  push-5-l">3</span> </h3>
+                </div>
+                <div class="block-content remove-padding" >
+                    <ul class="nav nav-pills nav-stacked push" 
+                    	data-toggle="slimscroll" 
+                    	data-height="screen-height"
+                    	data-offset='240'
+                    	>
+                        <li class="active">
+                            <a href="#">
+                               <i class="fa fa-fw fa-inbox push-5-r"></i> 资料类型
+                            </a>
+                        </li>
+                        <?php for( $i=0; $i<20; $i++ ) : ?>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-fw fa-star push-5-r"></i> 类型 <?=$i?>
+                            </a>
+                        </li>
+                    	<?php endfor; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-7 col-lg-9">
+    	<div class="block">
+    		<div class="block-header bg-gray-lighter">
+    			<ul class="block-options">
+                    <li>
+                        <button type="button" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+                    </li>
+                </ul>
+                <h3 class="block-title"> 类型0 </h3>
+            </div>
+    		<ul class="nav nav-tabs nav-tabs-alt" id="tabforms-typesetting" >
+	    		<li class="active" >
+	                <a id="tab-3000" 
+	                   href="#tabs-site"  
+	                   data-remote="#">
+	                   <i class="fa fa-globe"></i> 
+	                   <span class="font-w300" > 类型设定 </span>
+	                </a>
+	            </li>
+
+	            <li>
+	                <a id="TAB_14652838764558620" 
+	                   href="#tabs-wechat"  
+	                   data-remote="#">
+	                    <i class="fa fa-wechat"></i> 
+	                    <span class="font-w300" > 钉钉配置 </span>
+	                </a>
+	            </li>
+
+	            <li>
+	                <a id="TAB_14652838764558620" 
+	                   href="#tabs-wechat"  
+	                   data-remote="#">
+	                    <i class="fa fa-wechat"></i> 
+	                    <span class="font-w300" > 企业微信 </span>
+	                </a>
+	            </li>
+
+	            <li>
+	                <a id="TAB_14652838764558620" 
+	                   href="#tabs-wechat"  
+	                   data-remote="#">
+	                    <i class="fa fa-wechat"></i> 
+	                    <span class="font-w300" > 呈现模板 </span>
+	                </a>
+	            </li>
+    		</ul>
+
+    		<!-- TAB正文内容开始 -->
+        	<div class="block-content tab-content">
+
+	            <div class="tab-pane hide" id="tab-pane-error" >
+	                <div class="alert alert-danger push-50-l push-50-r push-20-t ">
+	                    <h3 class="font-w300 push-15">载入失败</h3>
+	                    <p>{HTML}</p>
+	                </div>
+	                <div class="row"  style="min-height:300px;" ></div>
+	            </div>
+
+	            <div class="tab-pane active" id="tabs-site" style="min-height:680px;"><div class="block-content"></div></div>
+	        </div>
+    	</div>
+	</div>
+</div>
+
+<script>
+$(function () {
+    App.initHelpers('slimscroll');
+
+});
+</script>
