@@ -40,73 +40,80 @@
     </div>
 
     <div class="col-sm-7 col-lg-9">
-    	<div class="block">
-    		<div class="block-header bg-gray-lighter">
-    			<ul class="block-options">
-                    <li>
-                        <button type="button" data-toggle="block-option" data-action="fullscreen_toggle"></button>
-                    </li>
-                </ul>
-                <h3 class="block-title"> 类型0 </h3>
-            </div>
-    		<ul class="nav nav-tabs nav-tabs-alt" id="tabforms-typesetting" >
-	    		<li class="active" >
-	                <a id="tab-3000" 
-	                   href="#tabs-site"  
-	                   data-remote="#">
-	                   <i class="fa fa-globe"></i> 
-	                   <span class="font-w300" > 类型设定 </span>
-	                </a>
-	            </li>
+        <!-- Block -->
+        <div class="block">
+            
+            <!-- TAB导航菜单 开始 -->
+            <ul class="nav nav-tabs nav-tabs-alt" id="tabforms-h5_datatype" >
+                
+                <!-- 左侧标签菜单 -->
+                <!-- 基本信息general 标签菜单开始 -->
+                <li class="active" >
+                    <a id="TAB_14671151760376891" 
+                       href="#tabs-general"  
+                       data-remote="<?=App::NR('Datatype','general', $query)?>">
+                        <i class="fa fa-server"></i> 
+                        <span class="font-w300" > 基本信息 </span>
+                    </a>
+                </li> <!-- 基本信息general 标签菜单结束 -->
 
-	            <li>
-	                <a id="TAB_14652838764558620" 
-	                   href="#tabs-wechat"  
-	                   data-remote="#">
-	                    <i class="fa fa-wechat"></i> 
-	                    <span class="font-w300" > 钉钉配置 </span>
-	                </a>
-	            </li>
+                <!-- 移动应用app 标签菜单开始 -->
+                <li  >
+                    <a id="TAB_14671164784783490" 
+                       href="#tabs-app"  
+                       data-remote="<?=App::NR('Datatype','app', $query)?>">
+                        <i class="fa  fa-puzzle-piece"></i> 
+                        <span class="font-w300" > 移动应用 </span>
+                    </a>
+                </li> <!-- 移动应用app 标签菜单结束 -->
 
-	            <li>
-	                <a id="TAB_14652838764558620" 
-	                   href="#tabs-wechat"  
-	                   data-remote="#">
-	                    <i class="fa fa-wechat"></i> 
-	                    <span class="font-w300" > 企业微信 </span>
-	                </a>
-	            </li>
+                <!-- 呈现模板template 标签菜单开始 -->
+                <li  >
+                    <a id="TAB_14671175612499775" 
+                       href="#tabs-template"  
+                       data-remote="<?=App::NR('Datatype','template', $query)?>">
+                        <i class="fa  fa-html5"></i> 
+                        <span class="font-w300" > 呈现模板 </span>
+                    </a>
+                </li> <!-- 呈现模板template 标签菜单结束 -->
 
-	            <li>
-	                <a id="TAB_14652838764558620" 
-	                   href="#tabs-wechat"  
-	                   data-remote="#">
-	                    <i class="fa fa-wechat"></i> 
-	                    <span class="font-w300" > 呈现模板 </span>
-	                </a>
-	            </li>
-    		</ul>
+                
+                <!-- 右侧标签菜单 -->
 
-    		<!-- TAB正文内容开始 -->
-        	<div class="block-content tab-content">
+            </ul> <!-- TAB导航菜单 结束 -->
 
-	            <div class="tab-pane hide" id="tab-pane-error" >
-	                <div class="alert alert-danger push-50-l push-50-r push-20-t ">
-	                    <h3 class="font-w300 push-15">载入失败</h3>
-	                    <p>{HTML}</p>
-	                </div>
-	                <div class="row"  style="min-height:300px;" ></div>
-	            </div>
+            <!-- TAB正文内容开始 -->
+            <div class="block-content tab-content">
 
-	            <div class="tab-pane active" id="tabs-site" style="min-height:680px;"><div class="block-content"></div></div>
-	        </div>
-    	</div>
+                <div class="tab-pane hide" id="tab-pane-error" >
+                    <div class="alert alert-danger push-50-l push-50-r push-20-t ">
+                        <h3 class="font-w300 push-15">载入失败</h3>
+                        <p>{HTML}</p>
+                    </div>
+                    <div class="row"  style="min-height:300px;" ></div>
+                </div>
+     
+                <!-- 基本信息general 标签内容开始 -->
+                <div class="tab-pane active" id="tabs-general"><?=App::NRUN('Datatype','general', $query)?></div><!-- 基本信息general 标签内容结束 -->
+                
+                <!-- 移动应用app 标签内容开始 -->
+                <div class="tab-pane " id="tabs-app"></div><!-- 移动应用app 标签内容结束 -->
+                
+                <!-- 呈现模板template 标签内容开始 -->
+                <div class="tab-pane " id="tabs-template"></div><!-- 呈现模板template 标签内容结束 -->
+                
+            </div> <!-- TAB内容结束 -->
+
+        </div><!-- END Block -->
+
 	</div>
 </div>
 
 <script>
 $(function () {
     App.initHelpers('slimscroll');
-
+    App.initHelper('nav-tabs', {'id':'#tabforms-h5_datatype'});
+    store.set('test', 'helloworld');
+    console.log('store = ', store.get('test') );
 });
 </script>

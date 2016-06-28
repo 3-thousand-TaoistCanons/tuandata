@@ -1,0 +1,586 @@
+<?php use \Tuanduimao\Loader\App as App; ?>
+<div class="block-content">
+    <form id="TAB_14671151760376891_FORM" 
+          class="js-validation-TAB_14671151760376891_FORM form-horizontal" 
+          action="<?=App::NR('Datatype','generalDataSave',['action'=>'general'])?>" method="post" >
+
+		<input type="hidden" name="_model" value="Datatype" />
+		<input type="hidden" class="updateflag" name="id" value="<?=$inst['_id']?>" />
+		<input type="hidden" class="updateflag" name="tid" value="<?=$inst['typeid']?>" />
+	
+		<!-- FORM GROUP GROUP_14671152294796759 -->
+		<div class="form-group">
+
+			<!-- 中文名称  组件单行文本 (inlinetext)-->
+			<div class="col-lg-6 col-md-6 col-xs-6"> 
+			 	<div class="form-material">
+			      	<input 	id="ID_14671152294797576" name="cname" 
+			      			type="text"  	
+			 
+							class="form-control"  placeholder="请填写类型名称"  
+							value="<?=(isset($inst['cname'])) ? $inst['cname'] : '' ?>"
+							 />
+			
+			      	<label class="title" for="cname">中文名称</label>
+			      	<div class="help-block text-right"></div>
+			 	</div>
+			</div><!-- END 中文名称  组件单行文本 (inlinetext)-->
+
+
+			<!-- 英文名称  组件单行文本 (inlinetext)-->
+			<div class="col-lg-6 col-md-6 col-xs-6"> 
+			 	<div class="form-material">
+			      	<input 	id="ID_1467115609731943" name="name" 
+			      			type="text"  	
+			 
+							class="form-control"  placeholder=""  
+							value="<?=(isset($inst['name'])) ? $inst['name'] : '请填写英文名称' ?>"
+							 />
+			
+			      	<label class="title" for="name">英文名称</label>
+			      	<div class="help-block text-right"></div>
+			 	</div>
+			</div><!-- END 英文名称  组件单行文本 (inlinetext)-->
+		
+		</div> <!-- END FORM GROUP GROUP_14671152294796759 -->
+
+		<!-- FORM GROUP GROUP_14671157420735964 -->
+		<div class="form-group">
+
+			<!-- 字段清单  组件多行文本 (multilinetext)-->
+			<div class="col-lg-12 col-md-12 col-xs-12"> 
+			 	<div class="form-material">
+			      	<textarea 	
+			      		id="ID_14671157420737366" name="fields" rows="6"
+			      		class="form-control  "
+						placeholder=""  
+					><?=(isset($inst['fields'])) ? $inst['fields'] : '' ?></textarea>
+			      	<label class="title" for="fields">字段清单</label>
+			      	<div class="help-block text-right"></div>
+			 	</div>
+			</div><!-- END 字段清单  组件多行文本 (multilinetext)-->
+		
+		</div> <!-- END FORM GROUP GROUP_14671157420735964 -->
+
+		<!-- FORM GROUP GROUP_14671158722213713 -->
+		<div class="form-group">
+
+			<!-- 绑定域名  组件单行文本 (inlinetext)-->
+			<div class="col-lg-6 col-md-6 col-xs-6"> 
+			 	<div class="form-material">
+			      	<input 	id="ID_14671158722211994" name="domain" 
+			      			type="text"  	
+			 
+							class="form-control"  placeholder="请将已备案域名解析到左侧地址，生效后填写在这里"  
+							value="<?=(isset($inst['domain'])) ? $inst['domain'] : '' ?>"
+							 />
+			
+			      	<label class="title" for="domain">绑定域名</label>
+			      	<div class="help-block text-right"></div>
+			 	</div>
+			</div><!-- END 绑定域名  组件单行文本 (inlinetext)-->
+
+
+			<!-- 前端服务器IP  组件单行文本 (inlinetext)-->
+			<div class="col-lg-6 col-md-6 col-xs-6"> 
+			 	<div class="form-material">
+			      	<input 	id="ID_14671159589237747" name="ID_14671159589237747" 
+			      			type="text"  	
+			 
+							class="form-control"  placeholder=""  
+							value="<?=(isset($inst['ID_14671159589237747'])) ? $inst['ID_14671159589237747'] : '192.168.1.1' ?>"
+							 />
+			
+			      	<label class="title" for="ID_14671159589237747">前端服务器IP</label>
+			      	<div class="help-block text-right"></div>
+			 	</div>
+			</div><!-- END 前端服务器IP  组件单行文本 (inlinetext)-->
+		
+		</div> <!-- END FORM GROUP GROUP_14671158722213713 -->
+
+		<!-- FORM GROUP GROUP_14671160420141102 -->
+		<div class="form-group">
+
+			<!-- 路由设置  组件多行文本 (multilinetext)-->
+			<div class="col-lg-12 col-md-12 col-xs-12"> 
+			 	<div class="form-material">
+			      	<textarea 	
+			      		id="ID_1467116042014668" name="route" rows="4"
+			      		class="form-control  "
+						placeholder="请填写路由映射规则"  
+					><?=(isset($inst['route'])) ? $inst['route'] : '' ?></textarea>
+			      	<label class="title" for="route">路由设置</label>
+			      	<div class="help-block text-right">每行一条规则 ( 地址正则&lt;sp&gt; 匹配地址&lt;sp&gt; 优先级&lt;sp&gt; 缓存时间(秒)&lt;sp&gt; 反解控制器&lt;sp&gt; 反解地址)</div>
+			 	</div>
+			</div><!-- END 路由设置  组件多行文本 (multilinetext)-->
+		
+		</div> <!-- END FORM GROUP GROUP_14671160420141102 -->
+
+		<!-- FORM GROUP GROUP_14671162108074116 -->
+		<div class="form-group">
+
+			<!-- 默认阅读权限  标签 (tagsinput)-->
+			<div class="col-lg-12 col-md-12 col-xs-12"> 
+			 	<div class="form-material">
+			      	<input 	id="ID_14671162108074462" name="readable" 
+			      			type="text"  	
+			 
+							class="form-control"  placeholder=""  
+							value="<?=(isset($inst['readable'])) ? $inst['readable'] : '企业主,管理员,员工,游客' ?>"
+					/>
+			      	<label class="title" for="readable">默认阅读权限</label>
+			      	<div class="help-block text-right"></div>
+			 	</div>
+			</div><!-- END 默认阅读权限  标签 (tagsinput)-->
+		
+		</div> <!-- END FORM GROUP GROUP_14671162108074116 -->
+
+		<!-- FORM GROUP GROUP_14671163540413515 -->
+		<div class="form-group">
+
+			<!-- 默认创建权限  标签 (tagsinput)-->
+			<div class="col-lg-12 col-md-12 col-xs-12"> 
+			 	<div class="form-material">
+			      	<input 	id="ID_14671163540415202" name="createable" 
+			      			type="text"  	
+			 
+							class="form-control"  placeholder=""  
+							value="<?=(isset($inst['createable'])) ? $inst['createable'] : '' ?>"
+					/>
+			      	<label class="title" for="createable">默认创建权限</label>
+			      	<div class="help-block text-right"></div>
+			 	</div>
+			</div><!-- END 默认创建权限  标签 (tagsinput)-->
+		
+		</div> <!-- END FORM GROUP GROUP_14671163540413515 -->
+
+		<!-- FORM GROUP GROUP_14671162893758718 -->
+		<div class="form-group">
+
+			<!-- 默认修改权限  标签 (tagsinput)-->
+			<div class="col-lg-12 col-md-12 col-xs-12"> 
+			 	<div class="form-material">
+			      	<input 	id="ID_14671162893754335" name="writeable" 
+			      			type="text"  	
+			 
+							class="form-control"  placeholder=""  
+							value="<?=(isset($inst['writeable'])) ? $inst['writeable'] : '' ?>"
+					/>
+			      	<label class="title" for="writeable">默认修改权限</label>
+			      	<div class="help-block text-right"></div>
+			 	</div>
+			</div><!-- END 默认修改权限  标签 (tagsinput)-->
+		
+		</div> <!-- END FORM GROUP GROUP_14671162893758718 -->
+
+		<!-- FORM GROUP GROUP_14671163886113982 -->
+		<div class="form-group">
+
+			<!-- 默认删除权限  标签 (tagsinput)-->
+			<div class="col-lg-12 col-md-12 col-xs-12"> 
+			 	<div class="form-material">
+			      	<input 	id="ID_14671163886114009" name="deleteable" 
+			      			type="text"  	
+			 
+							class="form-control"  placeholder=""  
+							value="<?=(isset($inst['deleteable'])) ? $inst['deleteable'] : '' ?>"
+					/>
+			      	<label class="title" for="deleteable">默认删除权限</label>
+			      	<div class="help-block text-right"></div>
+			 	</div>
+			</div><!-- END 默认删除权限  标签 (tagsinput)-->
+		
+		</div> <!-- END FORM GROUP GROUP_14671163886113982 -->
+
+		<!-- FORM GROUP GROUP_14671172870081144 -->
+		<div class="form-group">
+
+			<!--   按钮组 (btngroup)-->
+			<div class="col-lg-12">
+			
+				<div class="form-material text-left">
+					<button  
+						id="ID_14671172870094912_0" 
+						name="ID_14671172870094912_0"  
+						type="submit" 
+						class="btn btn-primary font-w300  push-20-r create"  
+						 
+					>
+			            <i class="fa fa-plus push-5-r"></i> 
+						创建类型 
+					</button>
+					<button  
+						id="ID_14671172870094912_1" 
+						name="ID_14671172870094912_1"  
+						type="submit" 
+						class="btn btn-primary font-w300  push-20-r update"  
+						 
+					>
+			            <i class="fa fa-save push-5-r"></i> 
+						更新类型 
+					</button>
+				</div>
+			
+			</div><!-- END   按钮组 (btngroup)-->
+			
+		
+		</div> <!-- END FORM GROUP GROUP_14671172870081144 -->
+
+
+	</form>
+</div>
+
+
+<script type="text/javascript">
+
+
+/**
+ * 提交表单 
+ * @param {[type]} validation [description]
+ * @param {[type]} form       [description]
+ */
+function TAB_14671151760376891_FORM_DataSubmit( validation, form  ) {
+
+	var replace = function( keys, string ) {
+		if ( typeof string != 'string' ) {
+			return string;
+		}
+
+		keys = keys || [];
+		for( var name in keys ) {
+			var value = keys[name];
+			var reg = new RegExp("\\{_" + name + "\\}", "g");
+			// console.log(reg, name, value);
+			string = string.replace(reg, value);
+			// console.log(string);
+		}
+
+		return string;
+	}
+
+
+	var isUpdate = false;
+    var api = $(form).attr('action');
+    var next = $(form).attr('data-next');
+    var submits = $('button', form);
+        $(submits).attr('disabled', 'disabled');
+        $(submits).addClass('disabled');
+
+    var data = {};
+
+    var formData =  $(form).serializeArray();
+        for( var i=0; i<formData.length; i++ ) {
+            var name = formData[i]['name'];
+            var value = formData[i]['value'];
+
+            if (value !== "") {
+                data[name] = value;
+            }
+        }
+
+
+    data = jQuery.extend(data, {});
+
+    $.post( api, data, function(data, textStatus, xhr) {
+
+        $(submits).removeAttr('disabled');
+        $(submits).removeClass('disabled');
+
+        code = data['code'] || 0;
+        extra = data['extra'] || [];
+
+		if ($('input[name="id"]').val() !== "" ) {
+			isUpdate = true;
+		}
+		if ( typeof data['_id'] != 'undefined') {
+			$('input[name="id"]').val(data['_id']);
+		}
+		if ($('input[name="tid"]').val() !== "" ) {
+			isUpdate = true;
+		}
+		if ( typeof data['typeid'] != 'undefined') {
+			$('input[name="tid"]').val(data['typeid']);
+		}
+
+
+        if ( typeof extra == 'object' && isNaN(extra.length) ) {
+            extra = [extra];
+        }
+
+
+
+        if ( parseInt(code) == 302 ) {
+            window.location.reload(true);
+            return;
+        }
+
+
+        if ( typeof data['result'] == 'boolean' && typeof data['content'] == 'string' ) {
+            
+            if (  data['result'] === false ) {
+                code = -1;
+                extra[0] = {
+                    '_FIELD':'error',
+                    'message':data['content']
+                };
+            }
+        }
+
+
+        if ( code != 0 ) {
+
+            for( i=0; i<extra.length; i++ ) {
+                field = extra[i]['_FIELD'] || null;
+                if ( field != null ) {
+                    message = data['message'] || '出错啦';
+                    if ( typeof extra[i]['message'] != 'undefined' ) {
+                        message = extra[i]['message'];
+                    }
+                    var err = {};
+                        err[field] = message;
+
+                    validation.showErrors(err);
+                }
+
+				message = '创建失败';
+		        if ( isUpdate ) {
+		        	message = '更新失败';
+		        }
+   
+                App.notify( replace(data,message), 'fa fa-times','danger');
+            }
+
+            return;
+        }
+
+        message = '创建成功';
+        if ( isUpdate ) {
+        	message = '更新成功';
+            TAB_14671151760376891_FORM_updateShow(data);
+        }
+
+        // 全局通知
+        App.notify( replace(data,message)  );
+        
+        return;
+
+    },'json')
+
+    .error( function(xhr, status, statusText ){
+
+		if ($('input[name="id"]').val() !== "" ) {
+			isUpdate = true;
+		}
+		if ($('input[name="tid"]').val() !== "" ) {
+			isUpdate = true;
+		}
+
+		message = '创建失败';
+		if ( isUpdate ) {
+			message = '更新失败';
+		}
+
+        validation.showErrors({'error': statusText.toString()} );
+             $(submits).removeAttr('disabled');
+             $(submits).removeClass('disabled');
+        App.notify(replace({message:statusText.toString()},message), 'fa fa-times','danger');
+
+        return;
+    });
+}
+
+
+
+
+/**
+ * 表单验证
+ */
+var TAB_14671151760376891_FORM = function() {
+    var initValidation = function(){
+        jQuery('.js-validation-TAB_14671151760376891_FORM').validate({
+            errorClass: 'help-block text-right animated fadeInDown',
+            errorElement: 'div',
+            errorPlacement: function(error, e) {                
+                jQuery(e).parents('.form-group .form-material').append(error);
+            },
+            highlight: function(e) {
+                jQuery(e).closest('.form-group .form-material').parent().removeClass('has-error').addClass('has-error');
+                jQuery(e).closest('.help-block').remove();
+            },
+            unhighlight:function(e){
+                jQuery(e).closest('.form-group .form-material').parent().removeClass('has-error');
+                jQuery(e).closest('.help-block').remove();
+            },
+            success: function(e) {
+                jQuery(e).closest('.form-group .form-material').parent().removeClass('has-error');
+                jQuery(e).closest('.help-block').remove();
+            },
+
+            submitHandler: function(form) {
+                var self = this;
+                TAB_14671151760376891_FORM_DataSubmit( self, form );
+            },
+            rules: {
+                "cname": {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 20,
+                },
+                "name": {
+                    required: true,
+                },
+            },
+
+            messages: {
+                "cname": {
+                    required: "请填写中文名称",
+                    minlength: "中文名称不能少于2个字",
+                    maxlength: "中文名称不能超过20个字",
+                },
+                "name": {
+                    required: "请填写英文名称",
+                },
+            }
+        });
+    };
+
+    return {
+        init: function () {
+            initValidation();  // Init Form Validation
+
+            if ( TAB_14671151760376891_FORM_isUpdate() === true ) {
+                TAB_14671151760376891_FORM_updateShow(<?=json_encode($inst)?>);
+            } else {
+                TAB_14671151760376891_FORM_createShow();
+            }
+        }
+    };
+}();
+
+/**
+ * 判断当前页面为更新还是保存
+ * @return {[type]} [description]
+ */
+function TAB_14671151760376891_FORM_isUpdate() {
+    var isupdate = false;
+    $('.updateflag', '.js-validation-TAB_14671151760376891_FORM').each(function(idx,elm){
+        if ( $(elm).val() != '') {
+             isupdate = true;
+        }
+    })
+    return isupdate;
+}
+
+
+/**
+ * 显示更新操作按钮
+ * @return {[type]} [description]
+ */
+function TAB_14671151760376891_FORM_updateShow( data ) {
+    var createShow = $('button.create:not(.update)', '.js-validation-TAB_14671151760376891_FORM');
+    var updateShow = $('button.update:not(.create)', '.js-validation-TAB_14671151760376891_FORM');
+    createShow.hide();
+    updateShow.show();
+    TAB_14671151760376891_FORM_tabName( "基本信息", data );
+}
+
+
+/**
+ * 显示新建操作按钮
+ * @return {[type]} [description]
+ */
+function TAB_14671151760376891_FORM_createShow() {
+    var createShow = $('button.create:not(.update)', '.js-validation-TAB_14671151760376891_FORM');
+    var updateShow = $('button.update:not(.create)', '.js-validation-TAB_14671151760376891_FORM');
+    createShow.show();
+    updateShow.hide();
+    TAB_14671151760376891_FORM_tabName( "基本信息" );
+}
+
+
+function TAB_14671151760376891_FORM_tabName( name, data ) {
+    data = data || null;
+    if ( typeof data == 'object' ) {
+        for( key in data ) {
+            var reg = new RegExp('\{' + key.toUpperCase() + '\}', 'gi');
+            name =  name.replace(reg, data[key]);
+        }
+    }
+    $('#TAB_14671151760376891').children('span').html(name);
+}
+
+
+</script>
+
+
+<script type="text/javascript">
+$(function () {
+
+    // 表单验证程序 初始化
+    TAB_14671151760376891_FORM.init();
+
+	
+	
+	// 初始化 readable (#ID_14671162108074462) tagsinput
+	try{ 
+		jQuery('#ID_14671162108074462').tagsInput({
+		    height: '36px',
+		    width: '100%',
+		    defaultText: '添加',
+		    removeWithBackspace: true,
+		    delimiter: [',']
+		});
+	}catch(e){
+		console.log('tagsInput(readable)  Error:',  e);
+	}
+	
+	
+	
+	// 初始化 createable (#ID_14671163540415202) tagsinput
+	try{ 
+		jQuery('#ID_14671163540415202').tagsInput({
+		    height: '36px',
+		    width: '100%',
+		    defaultText: '添加',
+		    removeWithBackspace: true,
+		    delimiter: [',']
+		});
+	}catch(e){
+		console.log('tagsInput(createable)  Error:',  e);
+	}
+	
+	
+	
+	// 初始化 writeable (#ID_14671162893754335) tagsinput
+	try{ 
+		jQuery('#ID_14671162893754335').tagsInput({
+		    height: '36px',
+		    width: '100%',
+		    defaultText: '添加',
+		    removeWithBackspace: true,
+		    delimiter: [',']
+		});
+	}catch(e){
+		console.log('tagsInput(writeable)  Error:',  e);
+	}
+	
+	
+	
+	// 初始化 deleteable (#ID_14671163886114009) tagsinput
+	try{ 
+		jQuery('#ID_14671163886114009').tagsInput({
+		    height: '36px',
+		    width: '100%',
+		    defaultText: '添加',
+		    removeWithBackspace: true,
+		    delimiter: [',']
+		});
+	}catch(e){
+		console.log('tagsInput(deleteable)  Error:',  e);
+	}
+	
+
+});
+</script>
+
+
