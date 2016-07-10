@@ -1,0 +1,72 @@
+{
+	"server":{
+		"name":"通用字段库", 
+		"host":"http://pt.tuanduimao.com/service/field/general",
+		"update":"2016-07-09 23:27:16"
+	},
+	"fields":[
+		{
+			"uuid":"09208ce1-e538-424e-a1ba-965323bcd63e",
+			"name":"name",
+			"cname":"名称",
+			"icon":"fa fa-user",
+			"screen_name":"名称",
+			"group":"物品",
+			"host":null,
+			"width":6,
+			"source":"<div>\"{LABEL}: {NAME}\"</div>",
+			"option":[
+				{"key":"label", "value":"标签"},
+				{"key":"name", "value":"物品清单"}
+			],
+			"width_mobile":12,
+			"source_mobile":"<div>\"{LABEL}: {NAME}\"</div>",
+			"option_mobile":[
+				{"key":"label", "value":"标签"},
+				{"key":"name", "value":"物品清单"}
+			]
+		},
+		{
+			"uuid":"acaa17a8-4048-11e6-beb8-9e71128cae77",
+			"name":"name",
+			"cname":"地址",
+			"icon":"fa fa-address",
+			"screen_name":"地址",
+			"group":"物品",
+			"host":null,
+			"width":6,
+			"source":"<div>\"{LABEL}: {NAME}\"</div>",
+			"option":[
+				{"key":"label", "value":"标签"},
+				{"key":"name", "value":"地址"}
+			],
+			"width_mobile":12,
+			"source_mobile":"<div>\"{LABEL}: {NAME}\"</div>",
+			"option_mobile":[
+				{"key":"label", "value":"标签"},
+				{"key":"name", "value":"地址"}
+			]
+		},
+		{
+			"uuid":"09208ce1-e538-424e-a1ba-965323bcd633",
+			"name":"mobile",
+			"cname":"手机号",
+			"icon":"fa fa-mobile",
+			"screen_name":"手机号",
+			"group":"用户",
+			"host":null,
+			"width":6,
+			"source":"<div>\"{LABEL}: {NAME}\"</div>",
+			"option":[
+				{"key":"label", "value":"标签"},
+				{"key":"name", "value":"用户清单"}
+			],
+			"width_mobile":12,
+			"source_mobile":"<div>\"{LABEL}: {NAME}\"</div>",
+			"option_mobile":[
+				{"key":"label", "value":"标签"},
+				{"key":"name", "value":"用户清单"}
+			]
+		}
+	]
+}

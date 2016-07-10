@@ -1,0 +1,55 @@
+{
+	"server":{
+		"name":"本地字段库", 
+		"host":"default",
+		"update":"2016-07-09 23:27:16"
+	},
+	"fields":[
+		{
+			"name":"name",
+			"cname":"名称",
+			"icon":"fa fa-user",
+			"screen_name":"名称",
+			"group":"物品",
+			"host":null,
+			"width":6,
+			"source":"<div>\"{LABEL}: {NAME}\"</div>",
+			"option":[
+				{"key":"label", "value":"标签"},
+				{"key":"name", "value":"物品清单"}
+			],
+			"width_mobile":12,
+			"source_mobile":"<div>\"{LABEL}: {NAME}\"</div>",
+			"option_mobile":[
+				{"key":"label", "value":"标签"},
+				{"key":"name", "value":"物品清单"}
+			]
+		},
+		{
+			"uuid":"09208ce1-e538-424e-a1ba-965323bcd63e",
+			"host":"http://pt.tuanduimao.com/service/field/general"
+		},
+		{
+			"name":"location",
+			"cname":"仓库地址",
+			"screen_name":"仓库地址",
+			"icon":"fa fa-location-arrow",
+			"group":"物品",
+			"width":12,
+			"width_mobile":12,
+			"uuid":"acaa17a8-4048-11e6-beb8-9e71128cae77",
+			"host":"http://pt.tuanduimao.com/service/field/general"
+		},
+		{
+			"name":"hourse",
+			"cname":"所在机房",
+			"screen_name":"所在机房",
+			"icon":"fa fa-server",
+			"group":"物品",
+			"width":12,
+			"width_mobile":12,
+			"uuid":"acaa17a8-4048-11e6-beb8-9e71128cae77",
+			"host":"http://pt.tuanduimao.com/service/field/general"
+		}
+	]
+}

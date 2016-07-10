@@ -51,7 +51,21 @@
                 <li class="active" >
                     <a id="TAB_14671151760376891" 
                        href="#tabs-general"  
-                       data-remote="<?=App::NR('Datatype','general', $query)?>">
+                       data-remote="<?=App::NR('Datatype','general', $query)?>"
+
+                        confirm-title="资料类型未创建"
+                        confirm-content="资料类型尚未创建，请创建后切换选项卡。" 
+                        confirm-submit="立即创建类型"
+                        confirm-dismiss="继续完善信息"
+                        confirm-display="true"
+                        leave-status="function( status, block ) {
+                            if ( status == 'show') {
+                                App.loading({message:'正在创建类型...'}).show()
+                            } else{
+                                App.loading().hide()
+                            }
+                        }"
+                    >
                         <i class="fa fa-server"></i> 
                         <span class="font-w300" > 基本信息 </span>
                     </a>
@@ -113,7 +127,18 @@
 $(function () {
     App.initHelpers('slimscroll');
     App.initHelper('nav-tabs', {'id':'#tabforms-h5_datatype'});
-    store.set('test', 'helloworld');
-    console.log('store = ', store.get('test') );
+
+    // General 切换时候，提醒用户保存
+    $('#tabforms-h5_datatype').tabLeave('tabs-general', function(tab, pane, leavedef ) {
+        console.log('on leaver', 'block', pane.parent().parent() );
+        var tasks = function(){
+                console.log( "执行完毕！")
+                leavedef.resolve(); // 改变deferred对象的执行状态
+                //leavedef.reject(); 改变Deferred对象的执行状态
+            };
+        setTimeout(tasks,2000);
+        return leavedef;
+    });
+     
 });
 </script>

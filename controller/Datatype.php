@@ -41,6 +41,8 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
         		'js/plugins/dropzonejs/dropzone.min.js',
         		'js/plugins/cropper/cropper.min.js',
         		'js/plugins/select2/select2.full.js',
+        		'js/plugins/jquery-quicksearch/jquery.quicksearch.js',
+        		'js/plugins/multi-select/js/jquery.multi-select.js',
         	],
 
         	'css'=> [
@@ -48,6 +50,7 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
         		'js/plugins/dropzonejs/dropzone.min.css',
         		'js/plugins/cropper/cropper.css',
         		'js/plugins/select2/select2.min.css',
+        		'js/plugins/multi-select/css/multi-select.css',
         	],
 
             'crumb' => [
@@ -57,7 +60,6 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
         ];
 	}
 
-	
 	
 	/**
 	 * 标签页( 基本信息general  )
@@ -106,7 +108,6 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 
 	/**
 	 * 保存或者更新数据: 标签页( 基本信息general  )
-	 *
 	 */
 	function generalDataSave(){
 
@@ -341,5 +342,25 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		echo json_encode($resp);
 	}
 
-	
+
+	/**
+	 * 读取字段列表
+	 * @return [type] [description]
+	 */
+	function getfield() {
+
+		$fd = App::M('Field');
+		// $general = $fd->loadHost('http://pt.tuanduimao.com/service/field/general');
+		// $default = $fd->loadHost('default');
+
+		echo "<pre>";
+		$fd->dataEach(function( $idx, $row){
+			print_r($row);
+		});
+		// print_r($default);
+		// print_r($general);
+		
+
+	}
+
 }

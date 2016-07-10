@@ -1,0 +1,9 @@
+{
+	"user":"skd32ksw83-11837-130",
+	"secret":"skd32ksw83-11837-130",
+	"hosts":[ 
+		"local-default", 
+		"http://pt.tuanduimao.com/service/field/general", 
+		"http://pt.tuanduimao.com/service/field/estate"
+	]
+}

@@ -47,16 +47,25 @@
 		<!-- FORM GROUP GROUP_14671157420735964 -->
 		<div class="form-group">
 
-			<!-- 字段清单  组件多行文本 (multilinetext)-->
+			<!-- 字段清单  组件多选清单 (multiselector)-->
 			<div class="col-lg-12 col-md-12 col-xs-12"> 
 			 	<div class="form-material">
-			      	<textarea 	
-			      		id="ID_14671157420737366" name="fields" rows="6"
-			      		class="form-control  "
-						placeholder=""  
-					><?=(isset($inst['fields'])) ? $inst['fields'] : '' ?></textarea>
-			      	<label class="title" for="fields">字段清单</label>
-			      	<div class="help-block text-right"></div>
+					<select multiple class="searchable" name="fields[]">
+                        <?php for($i=0; $i<5; $i++) : 
+                            $randval = mt_rand(0,1000);
+                            $selected = ( $randval % 2 == 0) ? 'selected' : '';
+                        ?>
+                        <option 
+                           data-icon="fa fa-plus"
+                           value="elem_<?=$i+1?>" 
+                           <?=($inst['fields']=='detailh5') ? 'selected' : '' ?>
+                            >
+                            元素 <?=$i+1?> 
+                        </option>
+                        <?php endfor;?>
+                    </select>
+			      	<label class="title" for="fields">选择字段</label>
+			      	<div class="help-block text-right">请从左侧字段库中选择资料所需字段</div>
 			 	</div>
 			</div><!-- END 字段清单  组件多行文本 (multilinetext)-->
 		
@@ -579,6 +588,61 @@ $(function () {
 		console.log('tagsInput(deleteable)  Error:',  e);
 	}
 	
+
+	
+	// 初始化 字段选择器 (#ID_14671163886114009) multiSelect
+    $('.searchable').multiSelect({
+      sortable: true,
+      selectableHeader: "<div class='row '>"
+                       +"	<div class='col-lg-6'><input type='text' class='form-control font-w300 search-input  push-15 push-10-t'  autocomplete='off' placeholder='输入关键词检索'> </div>" 
+                       +"	<div class='col-lg-6'>"
+                       +'		<select class="js-select2 form-control push-15 push-10-t" id="filedLoader" name="filedLoader" style="width:100%;">'
+                       +'   		<option>本地字段库</option>'
+                       +'   		<option value="1">通用字段库</option>'
+                       +'   		<option value="2">地产经纪行业字段库</option>'
+                       +'   		<option value="3">快消品行业字段库</option>'
+                       +'		</select>'
+                       +"	</div>"
+      				   +"</div>",
+
+      selectionHeader: "<input type='text' class='form-control font-w300 search-input push-15 push-10-t' autocomplete='off' placeholder='输入关键词检索'>",
+      afterInit: function(ms){
+        var that = this,
+            $selectableSearch = that.$selectableUl.prev().find('input'),
+            $selectionSearch = that.$selectionUl.prev(),
+            selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+            selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+        // console.log(that.$selectableUl.prev());
+        // console.log(that.$selectionUl.prev());
+
+        that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+        .on('keydown', function(e){
+          if (e.which === 40){
+            that.$selectableUl.focus();
+            return false;
+          }
+        });
+
+        that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+        .on('keydown', function(e){
+          if (e.which == 40){
+            that.$selectionUl.focus();
+            return false;
+          }
+        });
+      },
+
+      afterSelect: function(){
+        this.qs1.cache();
+        this.qs2.cache();
+      },
+      afterDeselect: function(){
+        this.qs1.cache();
+        this.qs2.cache();
+      }
+    });
+
 
 });
 </script>
