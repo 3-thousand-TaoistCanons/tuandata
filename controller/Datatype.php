@@ -99,7 +99,13 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 			if ( method_exists($datatype, 'format') ) {
 				$datatype->format($data['inst']);
 			}
-		} 
+		}
+
+
+		// FieldList 
+		$fd = App::M('Field');
+		$fdConf = $fd->getConf();
+		$data['hosts'] = $fdConf['hosts'];
 
 
 		App::render($data, 'H5/datatype/tabs','general');
@@ -343,6 +349,7 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 	}
 
 
+
 	/**
 	 * 读取字段列表
 	 * @return [type] [description]
@@ -350,17 +357,15 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 	function getfield() {
 
 		$fd = App::M('Field');
-		// $general = $fd->loadHost('http://pt.tuanduimao.com/service/field/general');
-		// $default = $fd->loadHost('default');
+		$conf = $fd->getConf();
 
-		echo "<pre>";
-		$fd->dataEach(function( $idx, $row){
-			print_r($row);
-		});
-		// print_r($default);
-		// print_r($general);
-		
-
+		$hid = isset($_GET['hid'] ) ? intval( $_GET['hid'] ) : null;
+		$host = null; $option = [];
+		if ( $hid !== null && isset( $conf['hosts'][$hid]) && is_array($conf['hosts'][$hid]) ) {
+			$host = $fd->getHost($conf['hosts'][$hid]['host']);
+		}
+		header('Content-Type: application/json');
+		echo json_encode($host);
 	}
 
 }

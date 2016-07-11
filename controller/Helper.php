@@ -24,7 +24,10 @@ class HelperController extends \Tuanduimao\Loader\Scaffold {
 
 	function tmp_field_estate() {
 		$json_text = file_get_contents(App::$APP_ROOT . "/config/field-server-sample.json");
+		$data = json_decode($json_text, true);
+		$data['server']['name'] = '地产经纪字段库';
+		$data['server']['host'] = 'http://pt.tuanduimao.com/service/field/estate';
 		header('Content-Type: application/json');
-		echo $json_text;
+		echo json_encode($data);
 	}
 }

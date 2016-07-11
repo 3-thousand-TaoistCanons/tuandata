@@ -115,6 +115,10 @@ class FieldModel extends Tab {
 
 		$json_text = file_get_contents($file_name);
 		$config = json_decode($json_text, true);
+		$config['data'] = [];
+		foreach ($config['hosts'] as $idx=>$host) {
+			array_push($config['data'], $host['host']);
+		}
 
 		if ( json_last_error() != JSON_ERROR_NONE ) {
 			throw new Excp('字段配置文件解析错误', 500, ['file_name'=>$file_name, 'json_last_error'=>json_last_error_msg(), 'json_text'=>$json_text]);
@@ -184,9 +188,86 @@ class FieldModel extends Tab {
 		$mem->setJSON($cache_name, $config);
 		return $config;
 	}
+
+
+	/**
+	 * 解析字段仓库
+	 * @param  Array $hostData 字段数据项 ( loadHost 返回结果 )
+	 * @return Array 解析后的 HostData 
+	 */
+	function parseHost( $hostData  ) {
+
+		$host = (isset($hostData['server']['host'])) ? $hostData['server']['host'] : null;
+		$hostData['fields'] = (is_array($hostData['fields'])) ? $hostData['fields'] : [];
+		$hostData['map'] = [];
+
+		foreach ($hostData['fields'] as $idx => $field) {
+			$remote = !empty( $field['remote'] ) ?  $field['remote']  : null;
+			$uuid = !empty( $field['uuid'] ) ?  $field['uuid']  : null;
+			if ( !empty($remote['host']) && !empty($remote['uuid'] ) ) {
+
+				$ruuid = $remote['uuid'];
+
+				// 读取引用其他Host的代码
+				if ( $remote['host'] != $host ) {
+
+					$ref = $this->getHost($remote['host']);
+					$refField = $ref['map'][$ruuid]; unset($refField['uuid']); unset($refField['remote']);
+
+					if ( is_array($refField) ) {
+
+						$field = array_merge($refField, $field );
+						unset($field['host']);
+						$hostData['fields'][$idx] = $field;
+					}
+				}
+			}
+
+			// 自动生成UUID
+			if ( $uuid === null ) {
+				ksort($field);
+				$uuid = md5(json_encode($field));
+				$hostData['fields'][$idx]['uuid'] = $uuid;
+			}
+
+			$hostData['map'][$uuid] = $field;
+		}
+
+		return $hostData;
+	}
+
+
+	/**
+	 * 读取并解析字段仓库
+	 * @param  [type]  $host     [description]
+	 * @param  array   $option   [description]
+	 * @param  boolean $no_cache [description]
+	 * @return [type]            [description]
+	 */
+	function getHost( $host = null, $no_cache=false ) {
+
+		$conf = $this->loadConf( $no_cache );
+		$idx = array_search( $host, $conf['data'] );
+		if ( $idx === false ) {
+			throw new Excp('HOST未配置', 500, ['host'=>$host, 'no_cache'=>$no_cache, 'conf'=>$conf]);
+		}
+
+		$option = array_merge($conf, $conf['hosts'][$idx]);  unset($option['hosts']);
+		return $this->parseHost($this->loadHost($host, $option, $no_cache) );
+	}
+
+
+
+	/**
+	 * 读取配置文件(别名)
+	 * @param  boolean $no_cache  [description]
+	 * @param  [type]  $file_name [description]
+	 * @return [type]             [description]
+	 */
+	function getConf( $no_cache = false, $file_name = null ) {
+		return $this->loadConf($no_cache, $file_name);
+	}
 	
-
-
 
 	/**
 	 * 从远程同步字段信息

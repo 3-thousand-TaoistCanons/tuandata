@@ -26,8 +26,10 @@
 			]
 		},
 		{
-			"uuid":"09208ce1-e538-424e-a1ba-965323bcd63e",
-			"host":"http://pt.tuanduimao.com/service/field/general"
+			"remote":{
+				"uuid":"4adbdb562c215ccd24eb283e29fd2a28",
+				"host":"http://pt.tuanduimao.com/service/field/general"
+			}
 		},
 		{
 			"name":"location",
@@ -37,8 +39,10 @@
 			"group":"物品",
 			"width":12,
 			"width_mobile":12,
-			"uuid":"acaa17a8-4048-11e6-beb8-9e71128cae77",
-			"host":"http://pt.tuanduimao.com/service/field/general"
+			"remote":{
+				"uuid":"470b76641566767376a1b5045dbd7a58",
+				"host":"http://pt.tuanduimao.com/service/field/general"
+			}
 		},
 		{
 			"name":"hourse",
@@ -48,8 +52,10 @@
 			"group":"物品",
 			"width":12,
 			"width_mobile":12,
-			"uuid":"acaa17a8-4048-11e6-beb8-9e71128cae77",
-			"host":"http://pt.tuanduimao.com/service/field/general"
+			"remote":{
+				"uuid":"470b76641566767376a1b5045dbd7a58",
+				"host":"http://pt.tuanduimao.com/service/field/general"
+			}
 		}
 	]
 }

@@ -6,7 +6,6 @@
 	},
 	"fields":[
 		{
-			"uuid":"09208ce1-e538-424e-a1ba-965323bcd63e",
 			"name":"name",
 			"cname":"名称",
 			"icon":"fa fa-user",
@@ -27,10 +26,9 @@
 			]
 		},
 		{
-			"uuid":"acaa17a8-4048-11e6-beb8-9e71128cae77",
 			"name":"name",
 			"cname":"地址",
-			"icon":"fa fa-address",
+			"icon":"fa fa-link",
 			"screen_name":"地址",
 			"group":"物品",
 			"host":null,
@@ -48,7 +46,6 @@
 			]
 		},
 		{
-			"uuid":"09208ce1-e538-424e-a1ba-965323bcd633",
 			"name":"mobile",
 			"cname":"手机号",
 			"icon":"fa fa-mobile",

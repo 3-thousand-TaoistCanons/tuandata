@@ -596,11 +596,10 @@ $(function () {
       selectableHeader: "<div class='row '>"
                        +"	<div class='col-lg-6'><input type='text' class='form-control font-w300 search-input  push-15 push-10-t'  autocomplete='off' placeholder='输入关键词检索'> </div>" 
                        +"	<div class='col-lg-6'>"
-                       +'		<select class="js-select2 form-control push-15 push-10-t" id="filedLoader" name="filedLoader" style="width:100%;">'
-                       +'   		<option>本地字段库</option>'
-                       +'   		<option value="1">通用字段库</option>'
-                       +'   		<option value="2">地产经纪行业字段库</option>'
-                       +'   		<option value="3">快消品行业字段库</option>'
+                       +'		<select class="js-select2 form-control push-15 push-10-t" id="fieldSelector" name="fieldSelector" style="width:100%;">'
+                       <?php foreach ($hosts as $idx=>$host ) : ?>
+                       +'   		<option value="<?=$idx?>"><?=$host['name']?></option>'
+                       <?php endforeach; ?>
                        +'		</select>'
                        +"	</div>"
       				   +"</div>",
@@ -631,6 +630,57 @@ $(function () {
             return false;
           }
         });
+
+
+        // 设置Select更新事件
+        $('#fieldSelector').on('change', function (evt) {
+		  	var url = '<?=APP::NR('datatype','getfield',['hid'=>''])?>' + $(this).val();
+		  	var current = $(this).val();
+		  	$.get(url, function(data){
+
+		  		if( !$.isArray(data['fields']) ) {
+		  			return;
+		  		}
+
+		  		// 已选中字段列表
+		  		var selected = $('.searchable').val();
+
+		  		// 移除非选中字段
+		  		$('option', '.searchable').each( function(idx,opt ) {
+		  			if ( $.inArray( $(opt).attr('value'), selected ) < 0  ) {
+		  				$(opt).remove();
+		  			}
+		  		});
+
+		  		// 载入字段服务器中字段清单
+		  		for( var i=0; i<data['fields'].length; i++ ) {
+
+		  			var field = data['fields'][i];
+		  			var text = field['cname'];
+		  			var value = field['uuid'];
+		  			if ( $.inArray( value, selected ) < 0  ) {
+			  			var opt = $('<option></option>');		  			
+			  			opt.html(' ' +text +' ');
+			  			opt.attr('value', value);
+			  			if ( typeof field['icon'] == 'string') {			  				
+			  				opt.attr('data-icon', field['icon']);
+			  			}
+			  			opt.appendTo('.searchable');
+		  			}
+		  		}
+
+		  		$('.searchable').multiSelect('refresh');
+
+		  		// 保持选中状态
+		  		$('#fieldSelector').val(current);
+		  		$('#fieldSelector').trigger('change.selected');
+
+		  	})
+		  	.error(function(error){
+		  		console.log(error);
+		  	});
+		});
+
       },
 
       afterSelect: function(){
