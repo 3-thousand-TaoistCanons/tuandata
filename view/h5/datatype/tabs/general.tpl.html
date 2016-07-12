@@ -1,4 +1,6 @@
-<?php use \Tuanduimao\Loader\App as App; ?>
+<?php use \Tuanduimao\Loader\App as App;
+use \Tuanduimao\Utils as Utils;
+$ut = new Utils; ?>
 <div class="block-content">
     <form id="TAB_14671151760376891_FORM" 
           class="js-validation-TAB_14671151760376891_FORM form-horizontal" 
@@ -33,8 +35,8 @@
 			      	<input 	id="ID_1467115609731943" name="name" 
 			      			type="text"  	
 			 
-							class="form-control"  placeholder=""  
-							value="<?=(isset($inst['name'])) ? $inst['name'] : '请填写英文名称' ?>"
+							class="form-control"  placeholder="请填写英文名称"  
+							value="<?=(isset($inst['name'])) ? $inst['name'] : '' ?>"
 							 />
 			
 			      	<label class="title" for="name">英文名称</label>
@@ -51,18 +53,16 @@
 			<div class="col-lg-12 col-md-12 col-xs-12"> 
 			 	<div class="form-material">
 					<select multiple class="searchable" name="fields[]">
-                        <?php for($i=0; $i<5; $i++) : 
+                        <?php foreach($host['fields'] as $field ) : 
                             $randval = mt_rand(0,1000);
-                            $selected = ( $randval % 2 == 0) ? 'selected' : '';
+                            $selected = (in_array($field['uuid'],$fields) ) ? 'selected' : '';
                         ?>
                         <option 
-                           data-icon="fa fa-plus"
-                           value="elem_<?=$i+1?>" 
-                           <?=($inst['fields']=='detailh5') ? 'selected' : '' ?>
-                            >
-                            元素 <?=$i+1?> 
+                           data-icon="<?=$field['icon']?>"
+                           value="<?=$field['uuid']?>"  <?=$selected?> > 
+                            <?=$field['screen_name']?>
                         </option>
-                        <?php endfor;?>
+                        <?php endforeach;?>
                     </select>
 			      	<label class="title" for="fields">选择字段</label>
 			      	<div class="help-block text-right">请从左侧字段库中选择资料所需字段</div>
@@ -80,12 +80,12 @@
 			      	<input 	id="ID_14671158722211994" name="domain" 
 			      			type="text"  	
 			 
-							class="form-control"  placeholder="请将已备案域名解析到左侧地址，生效后填写在这里"  
+							class="form-control"  placeholder="请填写访问域名"  
 							value="<?=(isset($inst['domain'])) ? $inst['domain'] : '' ?>"
 							 />
 			
 			      	<label class="title" for="domain">绑定域名</label>
-			      	<div class="help-block text-right"></div>
+			      	<div class="help-block text-right">建议域名解析生效后填写</div>
 			 	</div>
 			</div><!-- END 绑定域名  组件单行文本 (inlinetext)-->
 
@@ -94,14 +94,14 @@
 			<div class="col-lg-6 col-md-6 col-xs-6"> 
 			 	<div class="form-material">
 			      	<input 	id="ID_14671159589237747" name="ID_14671159589237747" 
-			      			type="text"  	
-			 
-							class="form-control"  placeholder=""  
-							value="<?=(isset($inst['ID_14671159589237747'])) ? $inst['ID_14671159589237747'] : '192.168.1.1' ?>"
+			      			type="text"  disabled 
+				
+							class="form-control disabled>"  placeholder=""  
+							value="<?=$ut->getServerIP()?>"
 							 />
 			
 			      	<label class="title" for="ID_14671159589237747">前端服务器IP</label>
-			      	<div class="help-block text-right"></div>
+			      	<div class="help-block text-right">请将已备案域名解析到此IP地址</div>
 			 	</div>
 			</div><!-- END 前端服务器IP  组件单行文本 (inlinetext)-->
 		
@@ -131,12 +131,35 @@
 			<!-- 默认阅读权限  标签 (tagsinput)-->
 			<div class="col-lg-12 col-md-12 col-xs-12"> 
 			 	<div class="form-material">
-			      	<input 	id="ID_14671162108074462" name="readable" 
-			      			type="text"  	
-			 
-							class="form-control"  placeholder=""  
-							value="<?=(isset($inst['readable'])) ? $inst['readable'] : '企业主,管理员,员工,游客' ?>"
-					/>
+			      	
+					<select 
+				      	id="ID_14671162108074462" name="readable[]"
+				      	class="js-select2 form-control" 
+				      	style="width: 100%;" placeholder="" multiple > 
+
+			            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+						<option value="boss" 
+							<?=(isset($inst['readable']) && in_array('boss', $inst['readable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['readable'])) ? 'selected' : '' ?>
+						>企业主</option>
+						<option value="admin" 
+							<?=(isset($inst['readable']) && in_array('admin', $inst['readable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['readable'])) ? 'selected' : '' ?>
+						>管理员</option>
+						<option value="manager" 
+							<?=(isset($inst['readable']) && in_array('manager', $inst['readable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['readable'])) ? 'selected' : '' ?>
+						>主管</option>
+						<option value="user" 
+							<?=(isset($inst['readable']) && in_array('user', $inst['readable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['readable'])) ? 'selected' : '' ?>
+						>员工</option>
+						<option value="vistor" 
+							<?=(isset($inst['readable']) && $inst['readable']=='vistor') ? 'selected' : '' ?>    
+							<?=(!isset($inst['readable'])) ? 'selected' : '' ?>
+						>访客</option>
+			        </select>
+
 			      	<label class="title" for="readable">默认阅读权限</label>
 			      	<div class="help-block text-right"></div>
 			 	</div>
@@ -150,12 +173,33 @@
 			<!-- 默认创建权限  标签 (tagsinput)-->
 			<div class="col-lg-12 col-md-12 col-xs-12"> 
 			 	<div class="form-material">
-			      	<input 	id="ID_14671163540415202" name="createable" 
-			      			type="text"  	
-			 
-							class="form-control"  placeholder=""  
-							value="<?=(isset($inst['createable'])) ? $inst['createable'] : '' ?>"
-					/>
+					<select 
+				      	id="ID_14671163540415202" name="createable[]"
+				      	class="js-select2 form-control" 
+				      	style="width: 100%;" placeholder="" multiple > 
+
+			            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+						<option value="boss" 
+							<?=(isset($inst['createable']) && in_array('boss', $inst['createable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['createable'])) ? 'selected' : '' ?>
+						>企业主</option>
+						<option value="admin" 
+							<?=(isset($inst['createable']) && in_array('admin', $inst['createable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['createable'])) ? 'selected' : '' ?>
+						>管理员</option>
+						<option value="manager" 
+							<?=(isset($inst['createable']) && in_array('manager', $inst['createable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['createable'])) ? 'selected' : '' ?>
+						>主管</option>
+						<option value="user" 
+							<?=(isset($inst['createable']) && in_array('user', $inst['createable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['createable'])) ? 'selected' : '' ?>
+						>员工</option>
+						<option value="vistor" 
+							<?=(isset($inst['createable']) && $inst['createable']=='vistor') ? 'selected' : '' ?>    
+							<?=(!isset($inst['createable'])) ? '' : '' ?>
+						>访客</option>
+			        </select>
 			      	<label class="title" for="createable">默认创建权限</label>
 			      	<div class="help-block text-right"></div>
 			 	</div>
@@ -169,12 +213,33 @@
 			<!-- 默认修改权限  标签 (tagsinput)-->
 			<div class="col-lg-12 col-md-12 col-xs-12"> 
 			 	<div class="form-material">
-			      	<input 	id="ID_14671162893754335" name="writeable" 
-			      			type="text"  	
-			 
-							class="form-control"  placeholder=""  
-							value="<?=(isset($inst['writeable'])) ? $inst['writeable'] : '' ?>"
-					/>
+					<select 
+				      	id="ID_14671162893754335" name="writeable[]"
+				      	class="js-select2 form-control" 
+				      	style="width: 100%;" placeholder="" multiple > 
+
+			            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+						<option value="boss" 
+							<?=(isset($inst['writeable']) && in_array('boss', $inst['writeable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['writeable'])) ? 'selected' : '' ?>
+						>企业主</option>
+						<option value="admin" 
+							<?=(isset($inst['writeable']) && in_array('admin', $inst['writeable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['writeable'])) ? 'selected' : '' ?>
+						>管理员</option>
+						<option value="manager" 
+							<?=(isset($inst['writeable']) && in_array('manager', $inst['writeable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['writeable'])) ? 'selected' : '' ?>
+						>主管</option>
+						<option value="user" 
+							<?=(isset($inst['writeable']) && in_array('user', $inst['writeable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['writeable'])) ? 'selected' : '' ?>
+						>员工</option>
+						<option value="vistor" 
+							<?=(isset($inst['writeable']) && $inst['writeable']=='vistor') ? 'selected' : '' ?>    
+							<?=(!isset($inst['writeable'])) ? '' : '' ?>
+						>访客</option>
+			        </select>
 			      	<label class="title" for="writeable">默认修改权限</label>
 			      	<div class="help-block text-right"></div>
 			 	</div>
@@ -188,12 +253,33 @@
 			<!-- 默认删除权限  标签 (tagsinput)-->
 			<div class="col-lg-12 col-md-12 col-xs-12"> 
 			 	<div class="form-material">
-			      	<input 	id="ID_14671163886114009" name="deleteable" 
-			      			type="text"  	
-			 
-							class="form-control"  placeholder=""  
-							value="<?=(isset($inst['deleteable'])) ? $inst['deleteable'] : '' ?>"
-					/>
+					<select 
+				      	id="ID_14671163886114009" name="deleteable[]"
+				      	class="js-select2 form-control" 
+				      	style="width: 100%;" placeholder="" multiple > 
+
+			            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+						<option value="boss" 
+							<?=(isset($inst['deleteable']) && in_array('boss', $inst['deleteable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['deleteable'])) ? 'selected' : '' ?>
+						>企业主</option>
+						<option value="admin" 
+							<?=(isset($inst['deleteable']) && in_array('admin', $inst['deleteable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['deleteable'])) ? 'selected' : '' ?>
+						>管理员</option>
+						<option value="manager" 
+							<?=(isset($inst['deleteable']) && in_array('manager', $inst['deleteable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['deleteable'])) ? 'selected' : '' ?>
+						>主管</option>
+						<option value="user" 
+							<?=(isset($inst['deleteable']) && in_array('user', $inst['deleteable'])) ? 'selected' : '' ?>    
+							<?=(!isset($inst['deleteable'])) ? 'selected' : '' ?>
+						>员工</option>
+						<option value="vistor" 
+							<?=(isset($inst['deleteable']) && $inst['deleteable']=='vistor') ? 'selected' : '' ?>    
+							<?=(!isset($inst['deleteable'])) ? '' : '' ?>
+						>访客</option>
+			        </select>
 			      	<label class="title" for="deleteable">默认删除权限</label>
 			      	<div class="help-block text-right"></div>
 			 	</div>
@@ -210,20 +296,16 @@
 				<div class="form-material text-left">
 					<button  
 						id="ID_14671172870094912_0" 
-						name="ID_14671172870094912_0"  
 						type="submit" 
-						class="btn btn-primary font-w300  push-20-r create"  
-						 
+						class="btn btn-primary font-w300  push-20-r create"
 					>
 			            <i class="fa fa-plus push-5-r"></i> 
 						创建类型 
 					</button>
 					<button  
 						id="ID_14671172870094912_1" 
-						name="ID_14671172870094912_1"  
 						type="submit" 
 						class="btn btn-primary font-w300  push-20-r update"  
-						 
 					>
 			            <i class="fa fa-save push-5-r"></i> 
 						更新类型 
@@ -276,20 +358,29 @@ function TAB_14671151760376891_FORM_DataSubmit( validation, form  ) {
         $(submits).addClass('disabled');
 
     var data = {};
-
     var formData =  $(form).serializeArray();
         for( var i=0; i<formData.length; i++ ) {
             var name = formData[i]['name'];
             var value = formData[i]['value'];
-
-            if (value !== "") {
-                data[name] = value;
+            if ( value !== null ) {
+            	var arrflag = name.indexOf('[]');
+            	if ( arrflag > 0 ) {
+            		name = name.substr(0, arrflag);
+            		if ( typeof data[name] == 'undefined' ) {
+            			data[name] = [];
+            		}
+            	}
+                if ( typeof data[name] == 'undefined' ) {
+                	data[name] = value;
+                } else if ( typeof data[name] == 'string' ) {
+                	data[name] = [data[name], value];
+                } else if ( $.isArray(data[name]) ) {
+                	data[name].push(value);
+                }
             }
         }
 
-
     data = jQuery.extend(data, {});
-
     $.post( api, data, function(data, textStatus, xhr) {
 
         $(submits).removeAttr('disabled');
@@ -528,73 +619,16 @@ $(function () {
     // 表单验证程序 初始化
     TAB_14671151760376891_FORM.init();
 
-	
-	
-	// 初始化 readable (#ID_14671162108074462) tagsinput
-	try{ 
-		jQuery('#ID_14671162108074462').tagsInput({
-		    height: '36px',
-		    width: '100%',
-		    defaultText: '添加',
-		    removeWithBackspace: true,
-		    delimiter: [',']
-		});
-	}catch(e){
-		console.log('tagsInput(readable)  Error:',  e);
-	}
-	
-	
-	
-	// 初始化 createable (#ID_14671163540415202) tagsinput
-	try{ 
-		jQuery('#ID_14671163540415202').tagsInput({
-		    height: '36px',
-		    width: '100%',
-		    defaultText: '添加',
-		    removeWithBackspace: true,
-		    delimiter: [',']
-		});
-	}catch(e){
-		console.log('tagsInput(createable)  Error:',  e);
-	}
-	
-	
-	
-	// 初始化 writeable (#ID_14671162893754335) tagsinput
-	try{ 
-		jQuery('#ID_14671162893754335').tagsInput({
-		    height: '36px',
-		    width: '100%',
-		    defaultText: '添加',
-		    removeWithBackspace: true,
-		    delimiter: [',']
-		});
-	}catch(e){
-		console.log('tagsInput(writeable)  Error:',  e);
-	}
-	
-	
-	
-	// 初始化 deleteable (#ID_14671163886114009) tagsinput
-	try{ 
-		jQuery('#ID_14671163886114009').tagsInput({
-		    height: '36px',
-		    width: '100%',
-		    defaultText: '添加',
-		    removeWithBackspace: true,
-		    delimiter: [',']
-		});
-	}catch(e){
-		console.log('tagsInput(deleteable)  Error:',  e);
-	}
-	
+    // Select2 
+    App.initHelpers(['select2']);
+
 
 	
 	// 初始化 字段选择器 (#ID_14671163886114009) multiSelect
     $('.searchable').multiSelect({
       sortable: true,
       selectableHeader: "<div class='row '>"
-                       +"	<div class='col-lg-6'><input type='text' class='form-control font-w300 search-input  push-15 push-10-t'  autocomplete='off' placeholder='输入关键词检索'> </div>" 
+                       +"	<div class='col-lg-6'><input type='text' class='form-control font-w300 search-input  push-15 push-10-t'  autocomplete='off' placeholder='关键词'> </div>" 
                        +"	<div class='col-lg-6'>"
                        +'		<select class="js-select2 form-control push-15 push-10-t" id="fieldSelector" name="fieldSelector" style="width:100%;">'
                        <?php foreach ($hosts as $idx=>$host ) : ?>
@@ -604,7 +638,7 @@ $(function () {
                        +"	</div>"
       				   +"</div>",
 
-      selectionHeader: "<input type='text' class='form-control font-w300 search-input push-15 push-10-t' autocomplete='off' placeholder='输入关键词检索'>",
+      selectionHeader: "<input type='text' class='form-control font-w300 search-input push-15 push-10-t' autocomplete='off' placeholder='关键词'>",
       afterInit: function(ms){
         var that = this,
             $selectableSearch = that.$selectableUl.prev().find('input'),
@@ -656,8 +690,9 @@ $(function () {
 		  		for( var i=0; i<data['fields'].length; i++ ) {
 
 		  			var field = data['fields'][i];
-		  			var text = field['cname'];
+		  			var text = field['screen_name'];
 		  			var value = field['uuid'];
+
 		  			if ( $.inArray( value, selected ) < 0  ) {
 			  			var opt = $('<option></option>');		  			
 			  			opt.html(' ' +text +' ');

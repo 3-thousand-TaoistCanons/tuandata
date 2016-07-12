@@ -11,17 +11,12 @@
 	"homepage":"https://github.com/diancloud/tuandata",
 	"menu": { 
 		"datatype/index": {
-			"name":"资料类型",
-			"controller":"datatype",
-			"action":"index",
+			"name":"类型设置",
+			"link":"{datatype,index,[first:1]}",
+			"order":1000,
 			"permission":"boss,admin,manager"
 		},
-    "setting/index": {
-      "name":"应用选项",
-      "controller":"setting",
-      "action":"index",
-      "permission":"boss,admin,manager"
-    }
+		"_hook":"{datatype,menulist}"
 	},
 	"dependencies": {},
 	"injections": {},

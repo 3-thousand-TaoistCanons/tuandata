@@ -8,12 +8,12 @@
                 <div class="block-header bg-gray-lighter">
                     <ul class="block-options">
                         <li>
-                            <a  href="<?=APP::R('default','deptpanel')?>"  >
+                            <a  href="<?=App::R('datatype','index')?>"  >
                                 <i class="fa fa-plus"></i> 创建类型
                             </a>
                         </li>
                     </ul>
-                    <h3 class="block-title">资料类型 <span class="badge  push-5-l">3</span> </h3>
+                    <h3 class="block-title">资料类型 <span class="badge push-5-l"><?=$datatype['total']?></span> </h3>
                 </div>
                 <div class="block-content remove-padding" >
                     <ul class="nav nav-pills nav-stacked push" 
@@ -21,18 +21,39 @@
                     	data-height="screen-height"
                     	data-offset='240'
                     	>
+
+                        <?php if ( empty($query['tid']) ) :  ?>
                         <li class="active">
                             <a href="#">
-                               <i class="fa fa-fw fa-inbox push-5-r"></i> 资料类型
+                               <i class="fa fa-fw fa-plus-circle push-5-r"></i> &lt; 未命名资料库  &gt;
                             </a>
                         </li>
-                        <?php for( $i=0; $i<20; $i++ ) : ?>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-fw fa-star push-5-r"></i> 类型 <?=$i?>
+                        <?php endif;  ?>
+
+                        <?php 
+                        if ( is_array($datatype['data'] ) ) :  
+                        foreach( $datatype['data'] as $idx=>$dt ) : 
+                        $active = false;
+                        if ($query['tid'] == $dt['typeid'] ) {
+                            $active = true;
+                        }
+
+                        ?>
+                        <li <?=$active ? 'class="active"' : ''?> >
+                            <?php if ( $active ) :  ?>
+                            <a href="#" >
+                                <i class="fa fa-fw fa-database push-5-r"></i> <?=$dt['cname']?>
                             </a>
+                            <?php else : ?>
+                            <a href="<?=App::R('datatype','index',['tid'=>$dt['typeid']])?>" >
+                                <i class="fa fa-fw fa-database push-5-r"></i>  <?=$dt['cname']?>
+                            </a>
+                            <?php endif;?>
                         </li>
-                    	<?php endfor; ?>
+
+                    	<?php 
+                        endforeach; 
+                        endif; ?>
                     </ul>
                 </div>
             </div>

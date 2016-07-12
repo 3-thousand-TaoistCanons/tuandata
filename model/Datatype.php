@@ -24,15 +24,6 @@ class DatatypeModel extends Tab {
 	 */
 	function __construct( $param=[] ) {
 
-		// if ( !isset($param['index']) ) {
-		// 	$param['index'] = Conf::G('supertable/search/index');
-		// }
-
-		// if ( empty($param['index']) ) {
-		// 	$param['index'] = 'tuanduimao';
-		// }
-
-
 		if ( !isset($param['_company_id'])) {
 			$param['_company_id'] = 0;
 		}
@@ -41,10 +32,6 @@ class DatatypeModel extends Tab {
 		parent::__construct('datatype', $name);
 
 	}
-
-
-
-
 
 	/**
 	 * 数据表结构
@@ -61,8 +48,12 @@ class DatatypeModel extends Tab {
 
 			$this->putColumn('domain', $this->type('BaseString', ['screen_name'=>'绑定域名','required'=>0, 'unique'=>0, 'matchable'=>0]) );
 			$this->putColumn('route', $this->type('BaseString', ['screen_name'=>'路由设置','required'=>0, 'unique'=>0, 'matchable'=>0]) );
-			
-			// ["boss","admin","user","manager","{userid}"]
+
+			$this->putColumn('icon', $this->type('BaseString', ['screen_name'=>'图标','required'=>0, 'unique'=>0, 'matchable'=>0]) );
+			$this->putColumn('primary', $this->type('BaseInt', ['screen_name'=>'类型排序','required'=>0, 'unique'=>0, 'matchable'=>0, 'default'=>100]));
+
+
+			// ["boss","admin","user","manager","vistor","{userid}"]
 			$this->putColumn('readable', $this->type('BaseArray', [
 				'screen_name'=>'默认阅读权限','default'=>["boss","admin","user","manager","vistor"],
 				'required'=>0, 'unique'=>0, 'matchable'=>0,'schema'=>'string'])
@@ -121,7 +112,7 @@ class DatatypeModel extends Tab {
 	 * @return [type] [description]
 	 */
 	function genid() {
-		return (string) uniqid(mt_rand(),1);;
+		return (string) uniqid(mt_rand(),1);
 	}
 
 

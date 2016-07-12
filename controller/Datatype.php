@@ -25,13 +25,25 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 	function index() {
 		
 		$allowkeys = [];
-
 		$allowkeys["id"] = (isset($_GET['id']))? trim($_GET['id']) : null;
 		$allowkeys["tid"] = (isset($_GET['tid']))? trim($_GET['tid']) : null;
+		$allowkeys["first"] = (isset($_GET['first']))? trim($_GET['first']) : null;
 
-		
-		$data = ['query'=>$allowkeys];
-		App::render($data, 'H5/datatype','index');
+
+		// 读取类型清单
+		$dt = App::M('Datatype');
+		$datatype = $dt->select('LIMIT 50', ['name','cname','typeid']);
+		$datatype['data'] = (isset($datatype['data']) && is_array($datatype['data'])) ? $datatype['data'] : [];
+		$datatype['total'] = (isset($datatype['total'])) ? intval($datatype['total']) : 0;
+
+		// 默认: 如果有类型，first 参数不为空, 则选中第一个, 
+		if ( $datatype['total'] > 0 && $allowkeys["first"] != null ) {
+			$allowkeys["tid"] = current($datatype['data'])['typeid'];
+		}
+
+
+		$data = ['query'=>$allowkeys, 'datatype'=>$datatype ];
+		App::render($data, 'h5/datatype','index');
 
 		return [
         	'js' => [
@@ -106,7 +118,12 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		$fd = App::M('Field');
 		$fdConf = $fd->getConf();
 		$data['hosts'] = $fdConf['hosts'];
+		$data['host'] = $fd->getHost( $data['hosts'][0]['host'] );
 
+		$data['fields'] = ["04ea55eaf475bdecb44fbe3149ef9a07"];  // 已选中Fields
+		if ( empty($data['inst']) ) {
+
+		}
 
 		App::render($data, 'H5/datatype/tabs','general');
 	}
@@ -348,6 +365,54 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		echo json_encode($resp);
 	}
 
+	/**
+	 * 类型管理入口菜单 
+	 * @return [type] [description]
+	 */
+	function menulist() {
+
+		// 读取类型清单
+		$datatype = App::M('Datatype')->select('LIMIT 50', ['name','cname','typeid', 'readable', 'primary']);
+		$datatype['data'] = (isset($datatype['data']) && is_array($datatype['data'])) ? $datatype['data'] : [];
+		$datatype['total'] = (isset($datatype['total'])) ? intval($datatype['total']) : 0;
+
+		$result = [];
+		foreach ($datatype['data']  as $dt ) {
+
+			$dt['readable'] = (is_array($dt['readable'])) ? $dt['readable'] : [];
+			$dt['primary'] = ( isset($dt['primary'])) ? intval($dt['primary']) : 0;
+			$permission = implode(',', $dt['readable']);
+			$order = $dt['primary'];
+
+			$result["data/index/{$dt['typeid']}"] = [
+				"name" => $dt['cname'],
+				"link" => '{data,index,[tid:'.$dt['typeid'].']}',
+				"target" => "",
+				"order"=>$order,
+				"permission" => $permission
+			];
+		}
+		//header('Content-Type: application/json');
+		echo json_encode($result);
+
+		// echo '{
+		// 	"docs/menutest4":{
+		// 		"name":"动态添加",
+		// 		"link":"{defaults,index,[test:61]}",
+		// 		"target":"",
+		// 		"order":102,
+		// 		"permission":"boss,admin,user,manager"
+		// 	},
+		// 	"docs/menutest5":{
+		// 		"name":"动态添加A",
+		// 		"link":"{defaults,index,[test:62]}",
+		// 		"target":"",
+		// 		"order":2,
+		// 		"permission":"boss,admin,user,manager"
+		// 	}
+		// }';
+	}
+
 
 
 	/**
@@ -364,6 +429,7 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		if ( $hid !== null && isset( $conf['hosts'][$hid]) && is_array($conf['hosts'][$hid]) ) {
 			$host = $fd->getHost($conf['hosts'][$hid]['host']);
 		}
+
 		header('Content-Type: application/json');
 		echo json_encode($host);
 	}
