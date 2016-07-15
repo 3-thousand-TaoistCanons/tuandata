@@ -84,25 +84,15 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		$datatype = App::M('Datatype');
 
 		$_id = (isset($_GET['id']) && !empty($_GET['id'])) ? $_GET['id'] : null;
-		if ( $_id !== null && !isset($data['inst']) ) {
-			$data['inst'] = $datatype->getLine("where _id='$_id' LIMIT 1");
+		if  ( $_id == null ) {
+			$typeid = (isset($_GET['tid']) && !empty($_GET['tid'])) ? $_GET['tid'] : null;
+			$_id = $datatype->uniqueToID('typeid', $typeid );
+		}
+
+		if ( $_id !== null  ) {
+			$data['inst'] = $datatype->get( $_id );
 			if ( $data['inst'] == null ) {
 				$e = new Excp( '系统错误,请联系管理员。', '500', ['_id'=>$_id]);
-				$e->log();
-				echo $e->toJSON();
-				return;
-			}
-
-			if ( method_exists($datatype, 'format') ) {
-				$datatype->format($data['inst']);
-			}
-		} 
-
-		$typeid = (isset($_GET['tid']) && !empty($_GET['tid'])) ? $_GET['tid'] : null;
-		if ( $typeid !== null && !isset($data['inst']) ) {
-			$data['inst'] = $datatype->getLine("where typeid='$typeid' LIMIT 1");
-			if ( $data['inst'] == null ) {
-				$e = new Excp( '系统错误,请联系管理员。', '500', ['typeid'=>$typeid]);
 				$e->log();
 				echo $e->toJSON();
 				return;
@@ -120,9 +110,23 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		$data['hosts'] = $fdConf['hosts'];
 		$data['host'] = $fd->getHost( $data['hosts'][0]['host'] );
 
-		$data['fields'] = ["04ea55eaf475bdecb44fbe3149ef9a07"];  // 已选中Fields
-		if ( empty($data['inst']) ) {
+		$data['fields'] = [];  // 已选中Fields
+		
+		//已选中的Fields 清单
+		if ( !empty($data['inst']) ) { // 修改类型时
 
+			$data['fields'] = $data['inst']['fields'];
+			if ( is_array($data['fields']) && count($data['fields']) > 0  ) {
+				$selected = $fd->select("WHERE uuid IN ('".implode("','", $data['fields']) ."')");
+				if ( isset($selected['data'])  && count($selected['data']) > 0 ) {
+					$data['host']['fields'] = array_merge($data['host']['fields'], $selected['data']);
+					$ut = new Utils;
+					$ut->array_unique_2d( $data['host']['fields'], 'uuid' );
+				}
+			}
+
+		} else { // 默认选中的清单， 创建类型时
+			$data['fields'] = ( isset($data['host']['defaults'] ) && is_array($data['host']['defaults']) ) ? $data['host']['defaults'] : [];
 		}
 
 		App::render($data, 'H5/datatype/tabs','general');
@@ -139,7 +143,6 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		
 		
 		$_id = (isset($_POST['id'])) ? $_POST['id'] : null;
-
 		$typeid = (isset($_POST['tid'])) ? $_POST['tid'] : null;
 
 		if ($_id === null ) {
@@ -173,6 +176,7 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 
 			return ;
 		}
+
 		
 		echo json_encode($resp);
 	}
@@ -188,8 +192,14 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		$datatype = App::M('Datatype');
 
 		$_id = (isset($_GET['id']) && !empty($_GET['id'])) ? $_GET['id'] : null;
-		if ( $_id !== null && !isset($data['inst']) ) {
-			$data['inst'] = $datatype->getLine("where _id='$_id' LIMIT 1");
+
+		if  ( $_id == null ) {
+			$typeid = (isset($_GET['tid']) && !empty($_GET['tid'])) ? $_GET['tid'] : null;
+			$_id = $datatype->uniqueToID('typeid', $typeid );
+		}
+
+		if ( $_id !== null) {
+			$data['inst'] = $datatype->get($_id);
 			if ( $data['inst'] == null ) {
 				$e = new Excp( '系统错误,请联系管理员。', '500', ['_id'=>$_id]);
 				$e->log();
@@ -201,22 +211,6 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 				$datatype->format($data['inst']);
 			}
 		} 
-
-		$typeid = (isset($_GET['tid']) && !empty($_GET['tid'])) ? $_GET['tid'] : null;
-		if ( $typeid !== null && !isset($data['inst']) ) {
-			$data['inst'] = $datatype->getLine("where typeid='$typeid' LIMIT 1");
-			if ( $data['inst'] == null ) {
-				$e = new Excp( '系统错误,请联系管理员。', '500', ['typeid'=>$typeid]);
-				$e->log();
-				echo $e->toJSON();
-				return;
-			}
-
-			if ( method_exists($datatype, 'format') ) {
-				$datatype->format($data['inst']);
-			}
-		} 
-
 
 		App::render($data, 'H5/datatype/tabs','app');
 	}
@@ -239,7 +233,7 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		if ($_id === null ) {
 	
 			if ( !empty($typeid) && $_id==null  ) {
-				$_id = $md->getVar('_id', "WHERE typeid='$typeid' LIMIT 1");
+				$_id = $datatype->uniqueToID('typeid', $typeid );
 			}
 		}
 
@@ -282,25 +276,15 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		$datatype = App::M('Datatype');
 
 		$_id = (isset($_GET['id']) && !empty($_GET['id'])) ? $_GET['id'] : null;
+		if  ( $_id == null ) {
+			$typeid = (isset($_GET['tid']) && !empty($_GET['tid'])) ? $_GET['tid'] : null;
+			$_id = $datatype->uniqueToID('typeid', $typeid );
+		}
+
 		if ( $_id !== null && !isset($data['inst']) ) {
-			$data['inst'] = $datatype->getLine("where _id='$_id' LIMIT 1");
+			$data['inst'] = $datatype->get($_id);
 			if ( $data['inst'] == null ) {
 				$e = new Excp( '系统错误,请联系管理员。', '500', ['_id'=>$_id]);
-				$e->log();
-				echo $e->toJSON();
-				return;
-			}
-
-			if ( method_exists($datatype, 'format') ) {
-				$datatype->format($data['inst']);
-			}
-		} 
-
-		$typeid = (isset($_GET['tid']) && !empty($_GET['tid'])) ? $_GET['tid'] : null;
-		if ( $typeid !== null && !isset($data['inst']) ) {
-			$data['inst'] = $datatype->getLine("where typeid='$typeid' LIMIT 1");
-			if ( $data['inst'] == null ) {
-				$e = new Excp( '系统错误,请联系管理员。', '500', ['typeid'=>$typeid]);
 				$e->log();
 				echo $e->toJSON();
 				return;
@@ -333,7 +317,7 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		if ($_id === null ) {
 	
 			if ( !empty($typeid) && $_id==null  ) {
-				$_id = $md->getVar('_id', "WHERE typeid='$typeid' LIMIT 1");
+				$_id = $datatype->uniqueToID('typeid', $typeid );
 			}
 		}
 
@@ -432,6 +416,33 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 
 		header('Content-Type: application/json');
 		echo json_encode($host);
+	}
+
+
+	/**
+	 * 同步数据
+	 * @return [type] [description]
+	 */
+	function synctest() {
+
+
+		$fd = App::M('Field');
+		$resp = $fd->sync();
+		// if ( $resp === false ) {
+		// 	print_r($fd->errors() );
+		// }
+
+		echo "OK";
+
+		// $resp = $fd->syncHost('default');
+		// if ( $resp === false) {
+		// 	print_r($fd->errors);
+		// }
+
+		// sleep(1);
+		// $resp = $fd->remove('77a2215790b4ca5b4aa0856e8d249b45', 'uuid');
+		// $resp = $fd->updateBy('uuid', 
+		// 			['uuid'=>'551b52334a62cf0a981c710b40e80aaf', 'cname'=>'更新的']);
 	}
 
 }

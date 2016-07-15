@@ -51,17 +51,20 @@ class FieldModel extends Tab {
 			
 			$this->putColumn('fid', $this->type('BaseString', ['screen_name'=>'字段ID','required'=>1, 'unique'=>1, 'matchable'=>0]) );
 			$this->putColumn('uuid',  $this->type('BaseString', ['screen_name'=>'字段UUID','required'=>1, 'unique'=>1, 'matchable'=>0]) );
-			$this->putColumn('name', $this->type('BaseString', ['screen_name'=>'字段英文名称','required'=>1, 'unique'=>1, 'matchable'=>0]) );
-			$this->putColumn('cname', $this->type('BaseString', ['screen_name'=>'字段中文名称','required'=>1, 'unique'=>1, 'matchable'=>0]) );
+			$this->putColumn('name', $this->type('BaseString', ['screen_name'=>'字段英文名称','required'=>1, 'unique'=>0, 'matchable'=>0]) );
+			$this->putColumn('cname', $this->type('BaseString', ['screen_name'=>'字段中文名称','required'=>1, 'unique'=>0, 'matchable'=>0]) );
 			$this->putColumn('icon', $this->type('BaseString', ['screen_name'=>'显示图标','required'=>0, 'unique'=>0, 'matchable'=>0]) );
-			$this->putColumn('screen_name', $this->type('BaseString', ['screen_name'=>'字段显示名称','required'=>1, 'unique'=>0, 'matchable'=>0]) );
+			$this->putColumn('screen_name', $this->type('BaseString', ['screen_name'=>'管理时字段显示名称','required'=>1, 'unique'=>0, 'matchable'=>0]) );
+			$this->putColumn('default', $this->type('BaseBool', ['screen_name'=>'是否为默认字段','required'=>0, 'unique'=>0,'default'=>false, 'matchable'=>0]) );
+
 
 			// $this->putColumn('gid',  $this->type('BaseString', ['screen_name'=>'字段分组ID','required'=>0, 'unique'=>0, 'matchable'=>0]) );
 			$this->putColumn('group',  $this->type('BaseString', ['screen_name'=>'字段分组名称','required'=>0, 'unique'=>0, 'matchable'=>0]) );
 			$this->putColumn('host',  $this->type('BaseString', ['screen_name'=>'字段来源', 'required'=>0, 'default'=>'localhost', 'unique'=>0, 'matchable'=>0]) );
 
 			$this->putColumn('source', $this->type('BaseString', ['screen_name'=>'字段代码','required'=>1, 'unique'=>0, 'matchable'=>0,'maxlength'=>65000]) );
-			$this->putColumn('option', $this->type('BaseArray', ['screen_name'=>'字段选项', 'default'=>[], 'required'=>0, 'unique'=>0, 'matchable'=>0]) );
+			$this->putColumn('option', $this->type('BaseArray', ['screen_name'=>'字段选项', 'default'=>[], 'required'=>0, 'unique'=>0, 'matchable'=>0,
+						"schema"=>'object']) );
 			$this->putColumn('width', $this->type('BaseInt', ['screen_name'=>'字段宽度', 'default'=>12, 'required'=>0, 'unique'=>0, 'matchable'=>0]) );
 			$this->putColumn('script', $this->type('BaseString', ['screen_name'=>'初始脚本', 'required'=>0, 'unique'=>0, 'matchable'=>0,'maxlength'=>65000]) );
 
@@ -69,7 +72,7 @@ class FieldModel extends Tab {
 			$this->putColumn('source_mobile', $this->type('BaseString', [
 				'screen_name'=>'字段代码(手机)','required'=>1, 'unique'=>0, 'matchable'=>0,'maxlength'=>65000]) );
 			$this->putColumn('option_mobile', $this->type('BaseArray', [
-				'screen_name'=>'字段选项(手机)', 'default'=>[], 'required'=>0, 'unique'=>0, 'matchable'=>0]) );
+				'screen_name'=>'字段选项(手机)', "schema"=>'object', 'default'=>[], 'required'=>0, 'unique'=>0, 'matchable'=>0]) );
 			$this->putColumn('width_mobile', $this->type('BaseInt', [
 				'screen_name'=>'字段宽度(手机)', 'default'=>12, 'required'=>0, 'unique'=>0, 'matchable'=>0]) );
 			$this->putColumn('script_mobile', $this->type('BaseString', [
@@ -199,7 +202,7 @@ class FieldModel extends Tab {
 
 		$host = (isset($hostData['server']['host'])) ? $hostData['server']['host'] : null;
 		$hostData['fields'] = (is_array($hostData['fields'])) ? $hostData['fields'] : [];
-		$hostData['map'] = [];
+		$hostData['map'] = []; $hostData['defaults'] = [];
 
 		foreach ($hostData['fields'] as $idx => $field) {
 			$remote = !empty( $field['remote'] ) ?  $field['remote']  : null;
@@ -215,7 +218,6 @@ class FieldModel extends Tab {
 					$refField = $ref['map'][$ruuid]; unset($refField['uuid']); unset($refField['remote']);
 
 					if ( is_array($refField) ) {
-
 						$field = array_merge($refField, $field );
 						unset($field['host']);
 						$hostData['fields'][$idx] = $field;
@@ -225,15 +227,50 @@ class FieldModel extends Tab {
 
 			// 自动生成UUID
 			if ( $uuid === null ) {
-				ksort($field);
-				$uuid = md5(json_encode($field));
+				$uuid = $this->getUUID( $field );
 				$hostData['fields'][$idx]['uuid'] = $uuid;
 			}
 
+			if ( isset($field['default']) && $field['default'] === true ) {
+				array_push( $hostData['defaults'] , $uuid);
+			}
+			
 			$hostData['map'][$uuid] = $field;
 		}
 
+
+
 		return $hostData;
+	}
+
+
+	/**
+	 * 根据字段信息生成指纹信息 
+	 * @param  [type] $field [description]
+	 * @return [type]        [description]
+	 */
+	function getUUID( $field ) {
+
+		$field = is_array($field) ?  $field : [];
+		unset($field['default']);
+		unset($field['host']);
+		unset($field['remote']);
+
+		$field['option'] = (isset($field['option']) && is_array($field['option'])) ? $field['option'] : [];
+		$field['option_mobile'] = (isset($field['option_mobile']) && is_array($field['option_mobile'])) ? $field['option_mobile'] : [];
+
+		foreach ($field['option'] as $idx=> $opt) {
+			ksort($field['option'][$idx]);
+		}
+
+		foreach ($field['option_mobile'] as $idx=> $opt) {
+			ksort($field['option_mobile'][$idx]);
+		}
+
+		ksort($field['option']);
+		ksort($field['option_mobile']);
+		ksort($field);
+		return md5(json_encode($field));
 	}
 
 
@@ -248,11 +285,15 @@ class FieldModel extends Tab {
 
 		$conf = $this->loadConf( $no_cache );
 		$idx = array_search( $host, $conf['data'] );
+
+
 		if ( $idx === false ) {
 			throw new Excp('HOST未配置', 500, ['host'=>$host, 'no_cache'=>$no_cache, 'conf'=>$conf]);
 		}
 
 		$option = array_merge($conf, $conf['hosts'][$idx]);  unset($option['hosts']);
+
+		
 		return $this->parseHost($this->loadHost($host, $option, $no_cache) );
 	}
 
@@ -270,13 +311,55 @@ class FieldModel extends Tab {
 	
 
 	/**
-	 * 从远程同步字段信息
-	 * @param  [type] $host 字段服务器地址
-	 * @return [type]       [description]
+	 * 将字段信息保存到数据库
+	 * @param  string $host 字段服务器地址
+	 * @return 成功返回 true , 失败返回错误清单
 	 */
-	function sync( $host ) {
+	function syncHost( $host ) {
+		$host = $this->getHost( $host, true );
+		$fields = ( isset($host['fields']) && is_array($host['fields']) ) ? $host['fields'] : [];
+		$errors = [];
+		foreach ($fields as $fs ) {
+			$fs['sync_at'] = date('Y-m-d H:i:s');
+			$resp = $this->save( $fs, 'uuid', true );
+			if( $resp === false ) {
+				$errors[$fs['uuid']] = $this->errors;
+			}
+		}
+
+		if ( count($errors) > 0 ){
+			return $errors;
+		}
+
+		return true;
+	}
+
+
+	/**
+	 * 根据配置文件设定，同步所有数据
+	 * @return [type] [description]
+	 */
+	function sync() {
+		$conf = $this->getConf( true );
+		$errors = [];
+
+		foreach ($conf['data'] as $host) {
+			$resp = $this->syncHost( $host );
+			if ( $resp !== true ) {
+				$errors[$host] = $resp;
+			}
+		}
+
+		if ( count($errors) > 0 ){
+			return $errors;
+		}
+
+		return true;
 
 	}
+
+
+
 
 
 	/**

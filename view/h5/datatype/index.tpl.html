@@ -2,7 +2,7 @@
 <!-- Page Content -->
 <div class="content">
     <div class="col-sm-5 col-lg-3">
-         <div class="collapse navbar-collapse remove-padding" id="inbox-nav">
+         <div class="collapse navbar-collapse remove-padding"  id="block-h5_datatype" >
             <!-- Inbox Menu -->
             <div class="block">
                 <div class="block-header bg-gray-lighter">
@@ -23,9 +23,9 @@
                     	>
 
                         <?php if ( empty($query['tid']) ) :  ?>
-                        <li class="active">
+                        <li class="active current-datatype">
                             <a href="#">
-                               <i class="fa fa-fw fa-plus-circle push-5-r"></i> &lt; 未命名资料库  &gt;
+                               <i class="fa fa-fw fa-plus-circle push-5-r"></i> <span> &lt; 未命名资料库  &gt; </span>
                             </a>
                         </li>
                         <?php endif;  ?>
@@ -39,7 +39,7 @@
                         }
 
                         ?>
-                        <li <?=$active ? 'class="active"' : ''?> >
+                        <li <?=$active ? 'class="active current-datatype"' : ''?> >
                             <?php if ( $active ) :  ?>
                             <a href="#" >
                                 <i class="fa fa-fw fa-database push-5-r"></i> <?=$dt['cname']?>
@@ -79,9 +79,10 @@
                         confirm-submit="立即创建类型"
                         confirm-dismiss="继续完善信息"
                         confirm-display="true"
+
                         leave-status="function( status, block ) {
                             if ( status == 'show') {
-                                App.loading({message:'正在创建类型...'}).show()
+                                App.loading({message:'正在保存数据...'}).show()
                             } else{
                                 App.loading().hide()
                             }
@@ -149,17 +150,7 @@ $(function () {
     App.initHelpers('slimscroll');
     App.initHelper('nav-tabs', {'id':'#tabforms-h5_datatype'});
 
-    // General 切换时候，提醒用户保存
-    $('#tabforms-h5_datatype').tabLeave('tabs-general', function(tab, pane, leavedef ) {
-        console.log('on leaver', 'block', pane.parent().parent() );
-        var tasks = function(){
-                console.log( "执行完毕！")
-                leavedef.resolve(); // 改变deferred对象的执行状态
-                //leavedef.reject(); 改变Deferred对象的执行状态
-            };
-        setTimeout(tasks,2000);
-        return leavedef;
-    });
+
      
 });
 </script>

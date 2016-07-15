@@ -25,6 +25,19 @@ class SetupController extends \Tuanduimao\Loader\Controller {
 	}
 
 	function repair() {
+		try {
+			$fd = App::M('Field');
+			$resp = $fd->sync();
+			if ( $resp !== true ){
+				echo json_encode(['code'=>500, 'message'=>'同步字段数据出错', ['extra'=>$resp]] );
+				return;
+			}
+
+		} catch( Excp $e ){
+			echo $e->toJSON();
+			return;
+		}
+
 		echo json_encode('ok');		
 	}
 

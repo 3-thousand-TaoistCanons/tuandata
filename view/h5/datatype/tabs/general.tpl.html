@@ -330,7 +330,14 @@ $ut = new Utils; ?>
  * @param {[type]} validation [description]
  * @param {[type]} form       [description]
  */
-function TAB_14671151760376891_FORM_DataSubmit( validation, form  ) {
+function TAB_14671151760376891_FORM_DataSubmit( validation, form, callback, option  ) {
+
+	if ( typeof callback != 'function' ) {
+		callback = function(data, status, xhr) { console.log('=========\n', 'submit callback:\n', status, data, '\n=========\n');  }	
+	}
+
+	option = option || {}
+	option['mute'] = option['mute'] || false;
 
 	var replace = function( keys, string ) {
 		if ( typeof string != 'string' ) {
@@ -410,6 +417,7 @@ function TAB_14671151760376891_FORM_DataSubmit( validation, form  ) {
 
 
         if ( parseInt(code) == 302 ) {
+        	callback( data, 'success', xhr );
             window.location.reload(true);
             return;
         }
@@ -446,22 +454,27 @@ function TAB_14671151760376891_FORM_DataSubmit( validation, form  ) {
 		        if ( isUpdate ) {
 		        	message = '更新失败';
 		        }
-   
+   				
+
                 App.notify( replace(data,message), 'fa fa-times','danger');
             }
 
+            callback( data, 'error', xhr );
             return;
         }
 
         message = '创建成功';
         if ( isUpdate ) {
         	message = '更新成功';
-            TAB_14671151760376891_FORM_updateShow(data);
         }
 
+        TAB_14671151760376891_FORM_updateShow(data);
+
         // 全局通知
-        App.notify( replace(data,message)  );
-        
+        if ( !option['mute'] ) {
+        	App.notify( replace(data,message)  );
+        }
+        callback( data, 'success', xhr );
         return;
 
     },'json')
@@ -484,7 +497,7 @@ function TAB_14671151760376891_FORM_DataSubmit( validation, form  ) {
              $(submits).removeAttr('disabled');
              $(submits).removeClass('disabled');
         App.notify(replace({message:statusText.toString()},message), 'fa fa-times','danger');
-
+        callback( {'error': statusText.toString()}, 'error', xhr );
         return;
     });
 }
@@ -497,7 +510,7 @@ function TAB_14671151760376891_FORM_DataSubmit( validation, form  ) {
  */
 var TAB_14671151760376891_FORM = function() {
     var initValidation = function(){
-        jQuery('.js-validation-TAB_14671151760376891_FORM').validate({
+        return jQuery('.js-validation-TAB_14671151760376891_FORM').validate({
             errorClass: 'help-block text-right animated fadeInDown',
             errorElement: 'div',
             errorPlacement: function(error, e) {                
@@ -546,13 +559,15 @@ var TAB_14671151760376891_FORM = function() {
 
     return {
         init: function () {
-            initValidation();  // Init Form Validation
+            var validationObject = initValidation();  // Init Form Validation
 
             if ( TAB_14671151760376891_FORM_isUpdate() === true ) {
                 TAB_14671151760376891_FORM_updateShow(<?=json_encode($inst)?>);
             } else {
                 TAB_14671151760376891_FORM_createShow();
             }
+
+            return validationObject;
         }
     };
 }();
@@ -582,6 +597,23 @@ function TAB_14671151760376891_FORM_updateShow( data ) {
     createShow.hide();
     updateShow.show();
     TAB_14671151760376891_FORM_tabName( "基本信息", data );
+
+    var tab = $('#tabforms-h5_datatype').tabGet('tabs-general');
+    	if ( tab !== false ){
+    		tab.attr('confirm-display', 'false');
+    	}
+
+    var tid = data['typeid'] || null;
+    var id = data['_id'] || null;
+
+    // 更新链接
+    $('#tabforms-h5_datatype').tabRemoteEach(function(url, tab) {
+    	if ( tid != null ) {
+    		var reg = new RegExp("tid=([0-9a-zA-Z\.]*)", "g");
+			url = url.replace(reg, 'tid='+tid);
+			$(tab).attr('data-remote', url);
+    	} 
+    });
 }
 
 
@@ -617,15 +649,45 @@ function TAB_14671151760376891_FORM_tabName( name, data ) {
 $(function () {
 
     // 表单验证程序 初始化
-    TAB_14671151760376891_FORM.init();
+    var validationObject = TAB_14671151760376891_FORM.init();
 
     // Select2 
     App.initHelpers(['select2']);
 
 
+    // 资料类型名称 实时更新
+    $('input[name=cname]', '.js-validation-TAB_14671151760376891_FORM').keyup(function(event) {
+    	var cname = $(this).val();
+    	if ( cname == '' ) {
+    		cname = ' &lt; 未命名资料库  &gt; ';
+    	}
+    	$('li.active.current-datatype span', '#block-h5_datatype').html( cname );
+    });
+
+    // General 切换时候，提醒用户保存
+    $('#tabforms-h5_datatype').tabLeave('tabs-general', function(tab, pane, leavedef ) {
+
+    	var resp = $('.js-validation-TAB_14671151760376891_FORM').valid();
+    	if ( resp === false ) {
+    		leavedef.reject();
+    	} else {
+	        TAB_14671151760376891_FORM_DataSubmit( validationObject, $('.js-validation-TAB_14671151760376891_FORM'), function(data, status, xhr){
+	        	if ( status == 'success') {
+	        		 var tab = $('#tabforms-h5_datatype').tabGet('tabs-general');
+	        			leavedef.resolve();
+	        	} else {
+	        		leavedef.reject();
+	        	}
+	        }, {'mute':true}); 
+        }
+   
+        return leavedef;
+    });
+
+
 	
 	// 初始化 字段选择器 (#ID_14671163886114009) multiSelect
-    $('.searchable').multiSelect({
+    $('.searchable', '.js-validation-TAB_14671151760376891_FORM').multiSelect({
       sortable: true,
       selectableHeader: "<div class='row '>"
                        +"	<div class='col-lg-6'><input type='text' class='form-control font-w300 search-input  push-15 push-10-t'  autocomplete='off' placeholder='关键词'> </div>" 

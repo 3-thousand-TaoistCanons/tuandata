@@ -2,8 +2,8 @@
 	"user":"skd32ksw83-11837-130",
 	"secret":"skd32ksw83-11837-130",
 	"hosts":[ 
-		"local-default", 
-		"http://pt.tuanduimao.com/service/field/general", 
-		"http://pt.tuanduimao.com/service/field/estate"
+		{"name":"本地字段库", "host":"default"}, 
+		{"name":"通用字段库", "host":"http://pt.tuanduimao.com/service/field/general","user":"skd32ksw83-11837-131","secret":"skd32ksw83-11837-131"}, 
+		{"name":"地产经纪字段库","host":"http://pt.tuanduimao.com/service/field/estate"}
 	]
 }
