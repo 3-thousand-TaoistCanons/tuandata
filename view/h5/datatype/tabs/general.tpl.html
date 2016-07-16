@@ -51,22 +51,23 @@ $ut = new Utils; ?>
 
 			<!-- 字段清单  组件多选清单 (multiselector)-->
 			<div class="col-lg-12 col-md-12 col-xs-12"> 
-			 	<div class="form-material">
-					<select multiple class="searchable" name="fields[]">
-                        <?php foreach($host['fields'] as $field ) : 
-                            $randval = mt_rand(0,1000);
-                            $selected = (in_array($field['uuid'],$fields) ) ? 'selected' : '';
-                        ?>
-                        <option 
-                           data-icon="<?=$field['icon']?>"
-                           value="<?=$field['uuid']?>"  <?=$selected?> > 
-                            <?=$field['screen_name']?>
-                        </option>
-                        <?php endforeach;?>
-                    </select>
-			      	<label class="title" for="fields">选择字段</label>
-			      	<div class="help-block text-right">请从左侧字段库中选择资料所需字段</div>
-			 	</div>
+				<div class="form-material">
+					<label class="title" for="fields">选择字段</label>
+				</div>
+
+				<select multiple class="searchable" name="fields[]">
+                    <?php foreach($host['fields'] as $field ) : 
+                        $randval = mt_rand(0,1000);
+                        $selected = (in_array($field['uuid'],$fields) ) ? 'selected' : '';
+                    ?>
+                    <option 
+                       data-icon="<?=$field['icon']?>"
+                       value="<?=$field['uuid']?>"  <?=$selected?> > 
+                        <?=$field['screen_name']?>
+                    </option>
+                    <?php endforeach;?>
+                </select>
+			    <div class="help-block text-right">请从左侧字段库中选择资料所需字段</div>
 			</div><!-- END 字段清单  组件多行文本 (multilinetext)-->
 		
 		</div> <!-- END FORM GROUP GROUP_14671157420735964 -->
@@ -690,9 +691,9 @@ $(function () {
     $('.searchable', '.js-validation-TAB_14671151760376891_FORM').multiSelect({
       sortable: true,
       selectableHeader: "<div class='row '>"
-                       +"	<div class='col-lg-6'><input type='text' class='form-control font-w300 search-input  push-15 push-10-t'  autocomplete='off' placeholder='关键词'> </div>" 
-                       +"	<div class='col-lg-6'>"
-                       +'		<select class="js-select2 form-control push-15 push-10-t" id="fieldSelector" name="fieldSelector" style="width:100%;">'
+                       +"	<div class='col-lg-6 push-10-t' ><input type='text' class='form-control font-w300 search-input  push-15 '  autocomplete='off' placeholder='关键词'> </div>" 
+                       +"	<div class='col-lg-6  push-10-t'>"
+                       +'		<select class="form-control push-15t" id="fieldSelector" name="fieldSelector" style="width:100%;">'
                        <?php foreach ($hosts as $idx=>$host ) : ?>
                        +'   		<option value="<?=$idx?>"><?=$host['name']?></option>'
                        <?php endforeach; ?>
@@ -729,6 +730,7 @@ $(function () {
 
 
         // 设置Select更新事件
+        $('#fieldSelector').select2();
         $('#fieldSelector').on('change', function (evt) {
 		  	var url = '<?=APP::NR('datatype','getfield',['hid'=>''])?>' + $(this).val();
 		  	var current = $(this).val();
@@ -770,7 +772,7 @@ $(function () {
 
 		  		// 保持选中状态
 		  		$('#fieldSelector').val(current);
-		  		$('#fieldSelector').trigger('change.selected');
+		  		$('#fieldSelector').trigger('change.select2');
 
 		  	})
 		  	.error(function(error){
