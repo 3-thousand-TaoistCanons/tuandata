@@ -32,7 +32,7 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 
 		// 读取类型清单
 		$dt = App::M('Datatype');
-		$datatype = $dt->select('LIMIT 50', ['name','cname','typeid']);
+		$datatype = $dt->select('ORDER BY primary ASC LIMIT 50', ['name','cname','typeid']);
 		$datatype['data'] = (isset($datatype['data']) && is_array($datatype['data'])) ? $datatype['data'] : [];
 		$datatype['total'] = (isset($datatype['total'])) ? intval($datatype['total']) : 0;
 
@@ -53,6 +53,7 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
         		'js/plugins/dropzonejs/dropzone.min.js',
         		'js/plugins/cropper/cropper.min.js',
         		'js/plugins/select2/select2.full.js',
+        		'js/plugins/jquery-sortable/sortable.min.js',
         		'js/plugins/jquery-quicksearch/jquery.quicksearch.js',
         		'js/plugins/multi-select/js/jquery.multi-select.js',
         	],
@@ -117,11 +118,30 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 
 			$data['fields'] = $data['inst']['fields'];
 			if ( is_array($data['fields']) && count($data['fields']) > 0  ) {
+				$fieldsOrder = array_flip( $data['fields'] );
+
 				$selected = $fd->select("WHERE uuid IN ('".implode("','", $data['fields']) ."')");
 				if ( isset($selected['data'])  && count($selected['data']) > 0 ) {
-					$data['host']['fields'] = array_merge($data['host']['fields'], $selected['data']);
+					$selected['order'] = $data['fields'];
+					foreach ($selected['data'] as $idx=>$sfield ) {
+						$uuid = $sfield['uuid'];
+						$oid = $fieldsOrder[$uuid];
+						$selected['order'][$oid] = $sfield;
+					}
+
+
+					$data['host']['fields'] = array_merge( $selected['order'],  $data['host']['fields']);
 					$ut = new Utils;
 					$ut->array_unique_2d( $data['host']['fields'], 'uuid' );
+					
+
+					// echo "<pre>";
+					// print_r($data['fields']);
+					// print_r( $selected['order']);
+					// print_r($selected['data']);
+					
+					// print_r($data['host']['fields']);
+					// echo "</pre>";
 				}
 			}
 
@@ -417,6 +437,46 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		header('Content-Type: application/json');
 		echo json_encode($host);
 	}
+
+
+	/**
+	 * 更新资料类型排序信息
+	 * @return [type] [description]
+	 */
+	function typelistUpdateOrder(){
+
+		$data = explode(',',$_POST['data']);
+		if ( count($data) <= 0 ) {
+			throw new Excp('无数据传入，非法请求', 403);
+		}
+
+		$dtype = App::M('Datatype');
+		$errors = [];
+		$result = true;
+		foreach ($data as $idx=>$tid ) {
+			$primary = intval($idx) * 100;
+			if ( $dtype->updateBy('typeid', ["typeid"=>$tid, 'primary'=>$primary])  === false ) {
+				$error = current($dtype->errors);
+				if (isset($error['code']) && $error['code']== 404) { // 忽略不存在错误 404 错误
+
+				} else {
+					$errors = array_merge( $errors, $dtype->errors );
+					$result = false;
+				}
+			}
+		}
+
+		if ( $result === false) {
+			echo json_encode(['code'=>500, 'message'=>'服务器返回结果异常', 'extra'=>$errors]);
+			return;
+		}
+
+		echo json_encode(['code'=>0, 'message'=>'保存成功']);
+
+		// echo json_encode($_POST);
+		// echo json_encode(['code'=>500, 'message'=>'服务器返回结果异常']);
+	}
+
 
 
 	/**

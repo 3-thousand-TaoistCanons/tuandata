@@ -4,19 +4,26 @@
     <div class="col-sm-5 col-lg-3">
          <div class="collapse navbar-collapse remove-padding"  id="block-h5_datatype" >
             <!-- Inbox Menu -->
-            <div class="block">
-                <div class="block-header bg-gray-lighter">
-                    <ul class="block-options">
+            <div class="block" >
+                <div class="block-header bg-gray-lighter" >
+                    
+                    <ul class="block-options" >
                         <li>
                             <a  href="<?=App::R('datatype','index')?>"  >
                                 <i class="fa fa-plus"></i> 创建类型
                             </a>
                         </li>
+                        <button 
+                            id="typelist-update"
+                            data-action="<?=App::NR('datatype','typelistUpdateOrder')?>"
+                            data-param-data=""
+                            class="btn btn-xs btn-danger ajax-submit font-w300  push-10-l  hidden">保存</button>
                     </ul>
-                    <h3 class="block-title">资料类型 <span class="badge push-5-l"><?=$datatype['total']?></span> </h3>
+                    
+                    <h3 class="block-title">资料类型</h3>
                 </div>
                 <div class="block-content remove-padding" >
-                    <ul class="nav nav-pills nav-stacked push" 
+                    <ul class="nav nav-pills nav-stacked push type-sort" 
                     	data-toggle="slimscroll" 
                     	data-height="screen-height"
                     	data-offset='240'
@@ -39,10 +46,10 @@
                         }
 
                         ?>
-                        <li <?=$active ? 'class="active current-datatype"' : ''?> >
+                        <li <?=$active ? 'class="active current-datatype"' : ''?>   data-id="<?=$dt['typeid']?>"  >
                             <?php if ( $active ) :  ?>
                             <a href="#" >
-                                <i class="fa fa-fw fa-database push-5-r"></i> <?=$dt['cname']?>
+                                <i class="fa fa-fw fa-database push-5-r"></i> <span> <?=$dt['cname']?> </span>
                             </a>
                             <?php else : ?>
                             <a href="<?=App::R('datatype','index',['tid'=>$dt['typeid']])?>" >
@@ -54,7 +61,12 @@
                     	<?php 
                         endforeach; 
                         endif; ?>
+
                     </ul>
+                    
+                </div>
+                <div class="bg-gray-lighter" style="line-height:36px;">
+                    <span class=" push-10-l text-muted font-s13">共有 <?=$datatype['total']?> 个类型的资料</span>
                 </div>
             </div>
         </div>
@@ -147,10 +159,41 @@
 
 <script>
 $(function () {
-    App.initHelpers('slimscroll');
+    App.initHelpers(['slimscroll', 'ajax-submit']);
     App.initHelper('nav-tabs', {'id':'#tabforms-h5_datatype'});
 
+    App.initHelpers('sortable',{  // 资料类型排序
+        id: '.type-sort',
+        dataIdAttr: 'data-id',
+        'onSort':function(evt){
+            $('#typelist-update','#block-h5_datatype').removeClass('hidden').show().hide().fadeIn('slow');
+        },
+    });
 
-     
+    $('#typelist-update','#block-h5_datatype').on('before', function() {
+        // var typelist = $('.type-sort').toArray();
+        var list = $('.type-sort').sortable('toArray') ;
+        if ( $.isArray(list) ) {
+            $(this).attr('data-param-data', list.join(',') );
+        }
+        App.loading({message:'正在保存类型排序...'}).show();
+    });
+
+    $('#typelist-update','#block-h5_datatype').on('success', function(event,data) {
+        App.loading().hide();
+        $('#typelist-update','#block-h5_datatype').addClass('hidden').hide(); 
+    })
+
+    $('#typelist-update','#block-h5_datatype').on('error', function(event,data) {
+
+        var  message = '保存类型排序失败';
+        if ( typeof data['message'] === 'string') {
+            message = message + '( ' + data['message'] + ')';
+         }
+
+        App.loading().hide();
+        App.notify(message, 'fa fa-times','danger');
+    });
+
 });
 </script>

@@ -1,7 +1,11 @@
 <?php use \Tuanduimao\Loader\App as App;
 use \Tuanduimao\Utils as Utils;
 $ut = new Utils; ?>
-<div class="block-content">
+<div class="block-content"
+	 data-toggle="slimscroll" 
+     data-height="screen-height"
+     data-offset='186'
+>
     <form id="TAB_14671151760376891_FORM" 
           class="js-validation-TAB_14671151760376891_FORM form-horizontal" 
           action="<?=App::NR('Datatype','generalDataSave',['action'=>'general'])?>" method="post" >
@@ -156,7 +160,7 @@ $ut = new Utils; ?>
 							<?=(!isset($inst['readable'])) ? 'selected' : '' ?>
 						>员工</option>
 						<option value="vistor" 
-							<?=(isset($inst['readable']) && $inst['readable']=='vistor') ? 'selected' : '' ?>    
+							<?=(isset($inst['readable']) && in_array('vistor', $inst['readable'])) ? 'selected' : '' ?>    
 							<?=(!isset($inst['readable'])) ? 'selected' : '' ?>
 						>访客</option>
 			        </select>
@@ -197,7 +201,7 @@ $ut = new Utils; ?>
 							<?=(!isset($inst['createable'])) ? 'selected' : '' ?>
 						>员工</option>
 						<option value="vistor" 
-							<?=(isset($inst['createable']) && $inst['createable']=='vistor') ? 'selected' : '' ?>    
+							<?=(isset($inst['createable']) && in_array('vistor', $inst['createable'])) ? 'selected' : '' ?>    
 							<?=(!isset($inst['createable'])) ? '' : '' ?>
 						>访客</option>
 			        </select>
@@ -237,7 +241,7 @@ $ut = new Utils; ?>
 							<?=(!isset($inst['writeable'])) ? 'selected' : '' ?>
 						>员工</option>
 						<option value="vistor" 
-							<?=(isset($inst['writeable']) && $inst['writeable']=='vistor') ? 'selected' : '' ?>    
+							<?=(isset($inst['writeable']) &&  in_array('vistor', $inst['writeable'])) ? 'selected' : '' ?>    
 							<?=(!isset($inst['writeable'])) ? '' : '' ?>
 						>访客</option>
 			        </select>
@@ -277,7 +281,7 @@ $ut = new Utils; ?>
 							<?=(!isset($inst['deleteable'])) ? 'selected' : '' ?>
 						>员工</option>
 						<option value="vistor" 
-							<?=(isset($inst['deleteable']) && $inst['deleteable']=='vistor') ? 'selected' : '' ?>    
+							<?=(isset($inst['deleteable']) && in_array('vistor', $inst['deleteable'])) ? 'selected' : '' ?>    
 							<?=(!isset($inst['deleteable'])) ? '' : '' ?>
 						>访客</option>
 			        </select>
@@ -334,7 +338,7 @@ $ut = new Utils; ?>
 function TAB_14671151760376891_FORM_DataSubmit( validation, form, callback, option  ) {
 
 	if ( typeof callback != 'function' ) {
-		callback = function(data, status, xhr) { console.log('=========\n', 'submit callback:\n', status, data, '\n=========\n');  }	
+		callback = function(data, status, xhr) {}	
 	}
 
 	option = option || {}
@@ -387,6 +391,7 @@ function TAB_14671151760376891_FORM_DataSubmit( validation, form, callback, opti
                 }
             }
         }
+       
 
     data = jQuery.extend(data, {});
     $.post( api, data, function(data, textStatus, xhr) {
@@ -653,7 +658,7 @@ $(function () {
     var validationObject = TAB_14671151760376891_FORM.init();
 
     // Select2 
-    App.initHelpers(['select2']);
+    App.initHelpers(['select2','slimscroll']);
 
 
     // 资料类型名称 实时更新
