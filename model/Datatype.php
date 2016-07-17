@@ -1,5 +1,6 @@
 <?php
 // 本程序自动生成 @2016-06-28 20:47:11
+require_once('loader/App.php');
 include_once( 'lib/Tab.php');
 include_once( 'lib/Mem.php');
 include_once( 'lib/Excp.php');
@@ -14,6 +15,8 @@ use \Tuanduimao\Excp as Excp;
 use \Tuanduimao\Err as Err;
 use \Tuanduimao\Conf as Conf;
 use \Tuanduimao\Stor as Stor;
+
+use \Tuanduimao\Loader\App as App;
 
 
 class DatatypeModel extends Tab {
@@ -104,6 +107,27 @@ class DatatypeModel extends Tab {
 		}
 
 		return $row;
+	}
+
+
+	/**
+	 * 根据设定的名称和字段信息，创建数据表
+	 * @return [type] [description]
+	 */
+	function toSchema( $slug, $uni_key='typeid' ) {
+		
+		$id = $this->uniqueToID( $uni_key, $slug );
+
+		$dt  = $this->get( $id );
+		$dt  = $this->format( $dt );
+		$fields = ( isset($dt['fields']) && is_array($dt['fields']) )  ? $dt['fields'] : [];
+		if( count( $fields) <= 0 ) {
+			return  [];
+		}
+
+		$fd = App::M('Field');
+		$fieldRows = $fd->select("WHERE uuid in ('".implode("','", $fields)."')" );
+		return $fieldRows;
 	}
 
 

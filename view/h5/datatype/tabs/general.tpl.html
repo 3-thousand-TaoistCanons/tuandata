@@ -64,6 +64,9 @@ $ut = new Utils; ?>
                     <?php foreach($host['fields'] as $field ) : 
                         $randval = mt_rand(0,1000);
                         $selected = (in_array($field['uuid'],$fields) ) ? 'selected' : '';
+                        if ( !isset($field['screen_name']) ) {
+                        	continue;
+                        }
                     ?>
                     <option 
                        data-icon="<?=$field['icon']?>"

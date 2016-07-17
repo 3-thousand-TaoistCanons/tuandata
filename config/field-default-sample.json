@@ -11,8 +11,17 @@
 			"icon":"fa fa-user",
 			"screen_name":"名称",
 			"group":"物品",
-			"host":null,
 			"width":6,
+			"default":true,
+			"storage":{
+				"type":"BaseString",
+				"option":{
+					"required":true,
+					"unique":true,
+					"matchable":false,
+					"maxlength":100 
+				}
+			},
 			"source":"<div>\"{LABEL}: {NAME}\"</div>",
 			"option":[
 				{"key":"label", "value":"标签"},
@@ -27,7 +36,7 @@
 		},
 		{
 			"remote":{
-				"uuid":"4adbdb562c215ccd24eb283e29fd2a28",
+				"uuid":"418bb4a8aa297bcced8fbaa8fa93e0e6",
 				"host":"http://pt.tuanduimao.com/service/field/general"
 			}
 		},
@@ -37,10 +46,20 @@
 			"screen_name":"仓库地址",
 			"icon":"fa fa-location-arrow",
 			"group":"物品",
+			"default":true,
+			"storage":{
+				"type":"BaseString",
+				"option":{
+					"required":false,
+					"unique":false,
+					"matchable":true,
+					"maxlength":500 
+				}
+			},
 			"width":12,
 			"width_mobile":12,
 			"remote":{
-				"uuid":"470b76641566767376a1b5045dbd7a58",
+				"uuid":"bce6405d52f67c23161d7de5063d36f1",
 				"host":"http://pt.tuanduimao.com/service/field/general"
 			}
 		},
@@ -53,7 +72,7 @@
 			"width":12,
 			"width_mobile":12,
 			"remote":{
-				"uuid":"470b76641566767376a1b5045dbd7a58",
+				"uuid":"bce6405d52f67c23161d7de5063d36f1",
 				"host":"http://pt.tuanduimao.com/service/field/general"
 			}
 		}

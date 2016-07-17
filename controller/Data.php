@@ -28,10 +28,13 @@ class DataController extends \Tuanduimao\Loader\Controller {
 
 
 		// 读取类型清单
-		$dt = App::M('Datatype')->getLine("WHERE typeid=\"{$tid}\" LIMIT 1");
+		$dt = App::M('Datatype');
+		$datatype = $dt->getLine("WHERE typeid='{$tid}' LIMIT 1");
+		$schema = $dt->toSchema( $tid );
 
 		echo "<pre>";
-		print_r($dt);
+		print_r($schema);
+		print_r($datatype);
 		echo "</pre>";
 
 
@@ -65,7 +68,7 @@ class DataController extends \Tuanduimao\Loader\Controller {
         	],
 
             'crumb' => [
-                "{$dt['cname']}管理" => APP::R('data','index',['tid'=>$tid]),
+                "{$datatype['cname']}管理" => APP::R('data','index',['tid'=>$tid]),
                 "数据列表" => "",
             ]
         ];

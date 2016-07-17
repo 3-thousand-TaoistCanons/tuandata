@@ -57,6 +57,12 @@ class FieldModel extends Tab {
 			$this->putColumn('screen_name', $this->type('BaseString', ['screen_name'=>'管理时字段显示名称','required'=>1, 'unique'=>0, 'matchable'=>0]) );
 			$this->putColumn('default', $this->type('BaseBool', ['screen_name'=>'是否为默认字段','required'=>0, 'unique'=>0,'default'=>false, 'matchable'=>0]) );
 
+			$this->putColumn('storage', $this->type('BaseObject', [
+				'screen_name'=>'存储结构', 'required'=>1, 
+				"default"=>[
+					'type'=>'BaseString', 'option'=>['required'=>0, 'unique'=>0, 'matchable'=>0,'maxlength'=>65000]
+				]]) 
+			);
 
 			// $this->putColumn('gid',  $this->type('BaseString', ['screen_name'=>'字段分组ID','required'=>0, 'unique'=>0, 'matchable'=>0]) );
 			$this->putColumn('group',  $this->type('BaseString', ['screen_name'=>'字段分组名称','required'=>0, 'unique'=>0, 'matchable'=>0]) );
@@ -205,6 +211,7 @@ class FieldModel extends Tab {
 		$hostData['map'] = []; $hostData['defaults'] = [];
 
 		foreach ($hostData['fields'] as $idx => $field) {
+
 			$remote = !empty( $field['remote'] ) ?  $field['remote']  : null;
 			$uuid = !empty( $field['uuid'] ) ?  $field['uuid']  : null;
 			if ( !empty($remote['host']) && !empty($remote['uuid'] ) ) {
@@ -221,6 +228,9 @@ class FieldModel extends Tab {
 						$field = array_merge($refField, $field );
 						unset($field['host']);
 						$hostData['fields'][$idx] = $field;
+					} else if ( $refField == null ) { // 不存在
+						unset($hostData['fields'][$idx]);
+						continue;
 					}
 				}
 			}
@@ -234,7 +244,7 @@ class FieldModel extends Tab {
 			if ( isset($field['default']) && $field['default'] === true ) {
 				array_push( $hostData['defaults'] , $uuid);
 			}
-			
+
 			$hostData['map'][$uuid] = $field;
 		}
 

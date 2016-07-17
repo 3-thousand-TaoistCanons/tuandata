@@ -12,6 +12,15 @@
 			"screen_name":"名称",
 			"group":"物品",
 			"width":6,
+			"storage":{
+				"type":"BaseString",
+				"option":{
+					"required":true,
+					"unique":false,
+					"matchable":false,
+					"maxlength":200 
+				}
+			},
 			"source":"<div>\"{LABEL}: {NAME}\"</div>",
 			"option":[
 				{"key":"label", "value":"标签"},
@@ -31,6 +40,15 @@
 			"screen_name":"地址",
 			"group":"物品",
 			"width":6,
+			"storage":{
+				"type":"BaseString",
+				"option":{
+					"required":false,
+					"unique":false,
+					"matchable":true,
+					"maxlength":500 
+				}
+			},
 			"source":"<div>\"{LABEL}: {NAME}\"</div>",
 			"option":[
 				{"key":"label", "value":"标签"},
@@ -50,6 +68,15 @@
 			"screen_name":"手机号",
 			"group":"用户",
 			"width":6,
+			"storage":{
+				"type":"BaseString",
+				"option":{
+					"required":true,
+					"unique":true,
+					"matchable":true,
+					"maxlength":50 
+				}
+			},
 			"source":"<div>\"{LABEL}: {NAME}\"</div>",
 			"option":[
 				{"key":"label", "value":"标签"},
