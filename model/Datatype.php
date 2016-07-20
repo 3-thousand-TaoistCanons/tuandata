@@ -111,24 +111,70 @@ class DatatypeModel extends Tab {
 
 
 	/**
-	 * 根据设定的名称和字段信息，创建数据表
-	 * @return [type] [description]
+	 * 根据设定的名称和字段信息，生成数据结构
+	 * @param  string $slug    唯一主键键值
+	 * @param  string $uni_key 唯一主键名称
+	 * @return Array 数据结构信息 
+	 *         		 返回结果示例: [{type:'BaseString', 'option':[...], 'field':'fdname'}, ...]
 	 */
 	function toSchema( $slug, $uni_key='typeid' ) {
 		
-		$id = $this->uniqueToID( $uni_key, $slug );
+		if ($uni_key == '_id') {
+			$id = $slug;
+		} else {
+			$id = $this->uniqueToID( $uni_key, $slug );
+		}
+
 
 		$dt  = $this->get( $id );
 		$dt  = $this->format( $dt );
 		$fields = ( isset($dt['fields']) && is_array($dt['fields']) )  ? $dt['fields'] : [];
-		if( count( $fields) <= 0 ) {
-			return  [];
-		}
+		if( count( $fields) <= 0 ) { return  []; }
 
 		$fd = App::M('Field');
 		$fieldRows = $fd->select("WHERE uuid in ('".implode("','", $fields)."')" );
-		return $fieldRows;
+	
+		$schema = [];
+		if ( isset($fieldRows['data']) && is_array($fieldRows['data'])) {
+			foreach ($fieldRows['data'] as $row) {
+				if ( isset($row['storage']) && is_array($row['storage']) ) {
+					$row['storage']['field'] = $row['name'];
+					$row['storage']['option'] = (isset($row['storage']['option'])) ? $row['storage']['option'] : [];
+					$row['storage']['option'] =  array_merge($row['storage']['option'], [
+						'screen_name'=>$row['cname']
+					]);
+					array_push($schema, $row['storage']);
+				} 
+			}
+		}
+		return $schema;
 	}
+
+
+	/**
+	 * 根据设定的名称和字段信息，更新数据结构 ( DataModel )
+	 * @param  string $slug    唯一主键键值
+	 * @param  string $uni_key 唯一主键名称
+	 * @return 成功返回Data对象, 失败返回异常
+	 */
+	function updateSchema( $slug, $uni_key='typeid' ) {
+		$schema = $this->toSchema( $slug, $uni_key );
+		$dataObject =  $this->M($slug, $uni_key );
+		return $dataObject->__updateSchema( $schema );
+	}
+
+
+
+	/**
+	 * 根据唯一主键键值，返回DataModel对象
+	 * @param  string $slug    唯一主键键值
+	 * @param  string $uni_key 唯一主键名称
+	 */
+	function M( $slug, $uni_key='name' ) {
+		return App::M('Data', ['slug'=>$slug, 'uni_key'=>$uni_key]);
+	}
+
+
 
 
 	/**

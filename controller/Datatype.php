@@ -197,7 +197,7 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 			return ;
 		}
 
-		
+		$md->updateSchema( $resp['_id'], '_id' );
 		echo json_encode($resp);
 	}
 

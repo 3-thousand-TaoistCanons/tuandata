@@ -32,33 +32,39 @@ class DataModel extends Tab {
 	 * 构造函数
 	 * @param array $param [description]
 	 */
-	function __construct( $typename ) {
+	function __construct( $param ) {
 
-		$param=[];
+		$param = is_array($param)? $param :  [];
+
+		$slug = isset($param['slug']) ? $param['slug'] : null;
+		if ( $slug === null ) {
+			throw new Excp('无法获取数据类型信息( slug is null )', 404, ['param'=>$param]);
+		}
+
+		if ( !isset($param['uni_key'])) {
+			$param['uni_key'] = '_id';
+		}
+		
+
 		if ( !isset($param['_company_id'])) {
 			$param['_company_id'] = 0;
 		}
 		$name = "com_{$param['_company_id']}";
 
 		$dt = App::M('Datatype');
-		$_dtid  = $dt->uniqueToID('name', $typename );
+		if ( $param['uni_key'] != '_id') {
+			$_dtid  = $dt->uniqueToID($param['uni_key'], $slug );
+		} else {
+			$_dtid = $slug;
+		}
+
 		if ( $_dtid === null ) {
-			throw new Excp('无法获取数据类型信息( _id is null )', 404, ['typename'=>$typename]);
+			throw new Excp('无法获取数据类型信息( _id is null )', 404, ['param'=>$param]);
 		}
 
 		$this->_datatype = $dt->get( $_dtid );
-		$this->_typename = $typename;
-		
-
-		parent::__construct( $typename, $name);
-	}
-
-
-	/**
-	 * 数据表结构
-	 * @return [type] [description]
-	 */
-	function __schema() {
+		$this->_typename = $this->_datatype['name'];
+		parent::__construct( $this->_typename, $name);
 	}
 
 

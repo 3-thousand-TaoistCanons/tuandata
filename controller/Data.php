@@ -30,11 +30,24 @@ class DataController extends \Tuanduimao\Loader\Controller {
 		// 读取类型清单
 		$dt = App::M('Datatype');
 		$datatype = $dt->getLine("WHERE typeid='{$tid}' LIMIT 1");
-		$schema = $dt->toSchema( $tid );
+		$object =  $dt->M($tid ,'typeid' );
+
 
 		echo "<pre>";
-		print_r($schema);
-		print_r($datatype);
+
+		$columns = $object->sheet()['columns'];
+		echo "\n== 数据表结构: ==============\n";
+		foreach ($columns as $field => $type) {
+			$t  =  $type->toArray();
+			echo "{$t['data']['screen_name']} | {$t['data']['column_name']} \n";
+		}
+
+
+
+		echo "\n== 插入数据测试: ==============\n";
+		var_dump($object->create(['name'=>'天安门城楼']));
+		print_r( $object->errors );
+
 		echo "</pre>";
 
 
