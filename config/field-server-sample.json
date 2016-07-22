@@ -6,7 +6,7 @@
 	},
 	"fields":[
 		{
-			"name":"name",
+			"name":"truename",
 			"cname":"名称",
 			"icon":"fa fa-user",
 			"screen_name":"名称",

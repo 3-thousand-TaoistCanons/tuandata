@@ -1,0 +1,98 @@
+<?php use \Tuanduimao\Loader\App as App; ?>
+<!-- Page Content -->
+<div class="content">
+
+	<!-- Search Section -->
+    <div class="block block-transparent">
+    	<div class="row" >
+	    	<div  class="col-lg-8 col-md-8 col-sm-8">
+		        <div class="input-group input-group-lg">
+		            <div class="input-group-addon font-w300">房源搜索</div> 
+		            <input class="js-icon-search form-control" type="text" placeholder="输入关键词">
+		            <span class="input-group-btn">
+		                <button class="btn btn-primary font-w300" type="button"><i class=" si si-magnifier"></i> 搜索 </button>
+		            </span>
+		        </div>
+	        </div>
+	        <div class="col-lg-4 col-md-4  col-sm-4">
+		        <button class="btn btn-primary btn-lg font-w300 pull-right" type="button"><i class="fa fa-plus"></i> 创建房源 </button>
+	        </div>
+        </div>
+    </div> <!-- END Section -->
+
+
+	<!-- List Block  -->
+    <div class="block">    
+        <!-- TAB导航菜单 开始 -->
+        <ul class="nav nav-tabs nav-tabs-alt" id="data-list-h5" >
+         	<!-- 全部 标签菜单开始 -->
+            <li class="active">
+                <a id="tab-1" 
+                   data-remote="<?=APP::NR('data','search', ['status'=>'all'])?>"
+                   href="#tabs-status-0" >
+                    <i class="fa fa-list"></i> 
+                    <span class="font-w300" > 全部 </span>
+                </a>
+            </li> <!-- 全部 标签菜单结束 -->
+
+
+            <!-- 订阅一 标签菜单开始 -->
+            <li>
+                <a id="tab-2" 
+                   data-remote="<?=APP::NR('data','search', ['status'=>'1'])?>"
+                   href="#tabs-status-1" >
+                    <i class="fa fa-list"></i> 
+                    <span class="font-w300" > 订阅一 </span>
+                </a>
+            </li> <!-- 订阅一 标签菜单结束 -->
+
+			
+			<!-- 右侧: 全屏 -->
+            <li class="pull-right">
+                <a href="#" type="button" class="except" data-toggle="block-option" data-action="fullscreen_toggle"></a>
+            </li> <!-- END 右侧: 全屏 -->
+
+            <!-- 右侧: 设置 -->
+            <li class="pull-right">
+                 <a id="tab-3"  
+                    href="#tabs-setting" >
+                    <i class="si si-settings"></i>
+                </a>
+            </li><!-- END 右侧: 设置 -->
+        </ul> <!-- TAB导航菜单 结束 -->
+	
+		<!-- TAB正文 开始 -->
+		<div class="block-content tab-content">
+            <div class="tab-pane hide" id="tab-pane-error" >
+                <div class="alert alert-danger push-50-l push-50-r push-20-t ">
+                    <h3 class="font-w300 push-15">载入失败</h3>
+                    <p>{HTML}</p>
+                </div>
+                <div class="row"  style="min-height:300px;" ></div>
+            </div>
+
+     
+            <!-- 基本信息general 标签内容开始 -->
+            <div class="tab-pane active" id="tabs-status-0">
+            	<?=APP::NRUN('data','search', ['status'=>'all'])?>
+            </div><!-- 基本信息general 标签内容结束 -->
+
+            <!-- 基本信息general 标签内容开始 -->
+            <div class="tab-pane " id="tabs-status-1">
+            	<p> LIST STATUS 1</p>
+            </div><!-- 基本信息general 标签内容结束 -->
+
+            <!-- 设置 标签内容开始 -->
+            <div class="tab-pane " id="tabs-setting">
+            	<p>  SETTING  </p>
+            </div><!-- 设置 标签内容结束 -->
+
+        </div> <!-- TAB正文 结束 -->
+
+    </div> <!-- End List Block  -->
+</div> <!-- END Page Content -->
+
+<script type="text/javascript">
+	App.initHelpers(['slimscroll', 'ajax-submit']);
+    App.initHelper('nav-tabs', {'id':'#data-list-h5'});
+</script>

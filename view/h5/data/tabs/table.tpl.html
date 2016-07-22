@@ -1,0 +1,87 @@
+<p class="remove-margin">
+	<span class="text-muted font-s13"> 共找到 386条 符合条件的房源 </span>
+
+	<a class="text-muted font-s13 pull-right push-15-r" href="#type"> <i class="glyphicon glyphicon-wrench"></i> 阅读模式 </a>
+	<a class="text-muted font-s13 pull-right push-15-r" href="#type"> <i class="glyphicon glyphicon-sort-by-order"></i> 创建时间</a>
+	<a class="text-muted font-s13 pull-right push-15-r" href="#type"> <i class="glyphicon glyphicon-list-alt"></i> 列表呈现 </a>
+	<a class="text-muted font-s13 pull-right push-15-r" href="#type"> <i class="glyphicon glyphicon-th"></i> 显示字段 </a>
+</p>
+<table class="js-table-checkable table table-hover remove-margin">
+	<thead>
+		<tr>
+			<th class="text-center" style="width: 60px;">
+                <label class="css-input css-checkbox css-checkbox-primary remove-margin-t remove-margin-b">
+                    <input type="checkbox" id="check-all"  name="check-all"><span></span>
+                </label>
+            </th>
+            
+			<th class="font-w300" style="width:15%;min-width:150px;">小区</th>
+			<th class="font-w300" style="width:15%;min-width:200px;">单元</th>
+			<th class="font-w300" style="width:40%;">详细地址</th>
+			<th class="font-w300" style="width:20%;">管理</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php for ($i=0; $i<10; $i++) :?>
+		<tr valign="" >
+            <td class="text-center" >
+                <label class="css-input css-checkbox css-checkbox-primary">
+                    <input type="checkbox" id="row_<?=$i?>"  name="row_<?=$i?>"><span></span>
+                </label>
+            </td>
+
+			<td> 颐和花园 </td>
+	        <td> 3号楼4单元403</td>
+	        <td> 北京市丰台区颐和花园3号楼4单元402</td>
+	        <td>    
+	        	<button  class="btn btn-sm btn-default push-20-r " type="button" > 修改</button>
+	        	<button  class="btn btn-sm btn-danger push-20-r " type="button" > 删除</button>
+	        </td>
+        </tr>
+    	<?php endfor; ?>
+	</tbody>
+
+	<tfoot>
+		<tr><td colspan="5">
+			<nav class="pull-right">
+                <ul class="pagination ">
+                    <li class="disabled">
+                        <a href="javascript:void(0)"><i class="fa fa-angle-double-left"></i></a>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><i class="fa fa-angle-double-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
+		</td></tr>
+	</tfoot>
+</table>
+
+<script type="text/javascript">
+$(function(){
+	App.initHelpers('table-tools', { 
+        onchange: function ( selectedCheckboxs ){
+            if ( selectedCheckboxs.length == 0 ) {
+                $('#removeAllMember').hide();
+            } else {
+                $('#removeAllMember').show();
+            }
+        }
+    });
+});
+</script>

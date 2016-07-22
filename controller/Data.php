@@ -26,29 +26,35 @@ class DataController extends \Tuanduimao\Loader\Controller {
 		
 		$tid = (isset($_GET['tid']))? trim($_GET['tid']) : null;
 
-
 		// 读取类型清单
 		$dt = App::M('Datatype');
 		$datatype = $dt->getLine("WHERE typeid='{$tid}' LIMIT 1");
-		$object =  $dt->M($tid ,'typeid' );
-
-
-		echo "<pre>";
-
-		$columns = $object->sheet()['columns'];
-		echo "\n== 数据表结构: ==============\n";
-		foreach ($columns as $field => $type) {
-			$t  =  $type->toArray();
-			echo "{$t['data']['screen_name']} | {$t['data']['column_name']} \n";
-		}
 
 
 
-		echo "\n== 插入数据测试: ==============\n";
-		var_dump($object->create(['name'=>'天安门城楼']));
-		print_r( $object->errors );
+		// $object =  $dt->M($tid ,'typeid' );
+		// $schema = $dt->toSchema($tid, 'typeid');
 
-		echo "</pre>";
+		// echo "<pre>";
+
+		// $columns = $object->sheet()['columns'];
+		// echo "\n== 数据表结构: ==============\n";
+		// foreach ($columns as $field => $type) {
+		// 	$t  =  $type->toArray();
+		// 	echo "{$t['data']['screen_name']} | {$t['data']['column_name']} \n";
+		// }
+
+		// echo "\n\n";
+		// print_r( $schema );
+
+
+
+		// echo "\n== 插入数据测试: ==============\n";
+		
+		// var_dump($object->create(['name'=>'天安门城楼']));
+		// print_r( $object->errors );
+
+		// echo "</pre>";
 
 
 		// 默认: 如果有类型，first 参数不为空, 则选中第一个, 
@@ -59,6 +65,9 @@ class DataController extends \Tuanduimao\Loader\Controller {
 
 		// $data = ['query'=>$allowkeys, 'datatype'=>$datatype ];
 		// App::render($data, 'h5/datatype','index');
+
+		$data = [];
+		App::render($data, 'h5/data', 'index' );
 
 		return [
         	'js' => [
@@ -85,6 +94,16 @@ class DataController extends \Tuanduimao\Loader\Controller {
                 "数据列表" => "",
             ]
         ];
+	}
+
+
+	/**
+	 * 搜索结果列表
+	 * @return [type] [description]
+	 */
+	function search() {
+		$data = [];
+		App::render($data, 'h5/data/tabs', 'table' );
 	}
 
 }

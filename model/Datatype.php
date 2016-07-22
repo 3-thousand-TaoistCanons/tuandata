@@ -175,8 +175,6 @@ class DatatypeModel extends Tab {
 	}
 
 
-
-
 	/**
 	 * 生成一个唯一的ID
 	 * @return [type] [description]
