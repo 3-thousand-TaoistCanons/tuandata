@@ -106,4 +106,15 @@ class DataController extends \Tuanduimao\Loader\Controller {
 		App::render($data, 'h5/data/tabs', 'table' );
 	}
 
+
+
+	/**
+	 * 表格设定
+	 * @return [type] [description]
+	 */
+	function setting() {
+		$data =  [];
+		App::render($data, 'h5/data/tabs', 'setting' );	
+	}
+
 }

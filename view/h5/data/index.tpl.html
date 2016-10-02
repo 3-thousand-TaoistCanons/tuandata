@@ -31,7 +31,7 @@
                    data-remote="<?=APP::NR('data','search', ['status'=>'all'])?>"
                    href="#tabs-status-0" >
                     <i class="fa fa-list"></i> 
-                    <span class="font-w300" > 全部 </span>
+                    <span class="font-w300" > 默认 </span>
                 </a>
             </li> <!-- 全部 标签菜单结束 -->
 
@@ -54,7 +54,8 @@
 
             <!-- 右侧: 设置 -->
             <li class="pull-right">
-                 <a id="tab-3"  
+                 <a id="tab-3"
+                 	data-remote="<?=APP::NR('data','setting')?>"
                     href="#tabs-setting" >
                     <i class="si si-settings"></i>
                 </a>
