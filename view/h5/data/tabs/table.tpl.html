@@ -1,11 +1,46 @@
-<p class="remove-margin">
-	<span class="text-muted font-s13"> 共找到 386条 符合条件的数据 <?=var_dump($_GET)?> </span>
+<div class="row items-push remove-margin">
+    <div class="col-xs-7">
+        <span class="text-muted font-s13"> 共找到 386条 符合条件的数据 <?=var_dump($_GET)?> </span>
+    </div>
+    
+    <div class="col-xs-5">
+        <div class="btn-toolbar pull-right text-center" role="toolbar">
+            
+            <div class="btn-group" role="group">
+                <button class="btn btn-default btn-xs" type="button"> <i class="glyphicon glyphicon-sort-by-order"></i> 创建时间  <span class="caret"></span> </button>
+            </div>
 
-	<a class="text-muted font-s13 pull-right push-15-r" href="#type"> <i class="glyphicon glyphicon-wrench"></i> 阅读模式 </a>
-	<a class="text-muted font-s13 pull-right push-15-r" href="#type"> <i class="glyphicon glyphicon-sort-by-order"></i> 创建时间</a>
-	<a class="text-muted font-s13 pull-right push-15-r" href="#type"> <i class="glyphicon glyphicon-list-alt"></i> 列表呈现 </a>
-	<a class="text-muted font-s13 pull-right push-15-r" href="#type"> <i class="glyphicon glyphicon-th"></i> 显示字段 </a>
-</p>
+            <div class="btn-group" role="group">
+                <button class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-th"></i> 显示字段  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li class="dropdown-header">Profile</li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">3</span>News</a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">1</span>Messages</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">More</li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">Edit Profile..</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group" role="group">
+                <button class="btn btn-default btn-xs" type="button"> <i class="glyphicon glyphicon-list-alt"></i> 列表呈现  <span class="caret"></span> </button>
+            </div>
+
+            <div class="btn-group" role="group">
+                <button class="btn btn-default btn-xs" type="button"> <i class="glyphicon glyphicon-wrench"></i> 阅读模式 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <table class="js-table-checkable table table-hover remove-margin">
 	<thead>
 		<tr>
