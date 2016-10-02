@@ -28,7 +28,7 @@
          	<!-- 全部 标签菜单开始 -->
             <li class="active">
                 <a id="tab-1" 
-                   data-remote="<?=APP::NR('data','search', ['status'=>'all'])?>"
+                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'list'])?>"
                    href="#tabs-status-0" >
                     <i class="fa fa-list"></i> 
                     <span class="font-w300" > 默认 </span>
@@ -39,12 +39,55 @@
             <!-- 订阅一 标签菜单开始 -->
             <li>
                 <a id="tab-2" 
-                   data-remote="<?=APP::NR('data','search', ['status'=>'1'])?>"
+                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'grid'])?>"
                    href="#tabs-status-1" >
                     <i class="fa fa-list"></i> 
-                    <span class="font-w300" > 订阅一 </span>
+                    <span class="font-w300" > 网格 </span>
                 </a>
             </li> <!-- 订阅一 标签菜单结束 -->
+
+
+            <!-- 订阅二 标签菜单开始 -->
+            <li>
+                <a id="tab-3" 
+                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'timeline'])?>"
+                   href="#tabs-status-2" >
+                    <i class="fa fa-list"></i> 
+                    <span class="font-w300" > 时间线 </span>
+                </a>
+            </li> <!-- 订阅二 标签菜单结束 -->
+
+
+            <!-- 订阅二 标签菜单开始 -->
+            <li>
+                <a id="tab-4" 
+                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'list','_list_mode'=>'readonly'])?>"
+                   href="#tabs-status-3" >
+                    <i class="fa fa-list"></i> 
+                    <span class="font-w300" > 阅读 </span>
+                </a>
+            </li> <!-- 订阅二 标签菜单结束 -->
+
+
+            <!-- 订阅二 标签菜单开始 -->
+            <li>
+                <a id="tab-5" 
+                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'timeline','_list_mode'=>'readonly'])?>"
+                   href="#tabs-status-4" >
+                    <i class="fa fa-list"></i> 
+                    <span class="font-w300" > 阅读网格 </span>
+                </a>
+            </li> <!-- 订阅二 标签菜单结束 -->
+
+            <!-- 订阅二 标签菜单开始 -->
+            <li>
+                <a id="tab-6" 
+                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'timeline','_list_mode'=>'readonly'])?>"
+                   href="#tabs-status-5" >
+                    <i class="fa fa-list"></i> 
+                    <span class="font-w300" > 阅读时间线 </span>
+                </a>
+            </li> <!-- 订阅二 标签菜单结束 -->
 
 			
 			<!-- 右侧: 全屏 -->
@@ -70,15 +113,14 @@
             	<?=APP::NRUN('data','search', ['status'=>'all'])?>
             </div><!-- 基本信息general 标签内容结束 -->
 
-            <!-- 基本信息general 标签内容开始 -->
-            <div class="tab-pane " id="tabs-status-1">
-            	<p> LIST STATUS 1</p>
-            </div><!-- 基本信息general 标签内容结束 -->
+            <!--  标签内容开始 -->
+            <div class="tab-pane " id="tabs-status-1"></div> <!-- 列表 管理模式 -->
+            <div class="tab-pane " id="tabs-status-2"></div> <!-- 网格 管理模式 -->
+            <div class="tab-pane " id="tabs-status-3"></div> <!-- 时间线 管理模式 -->
+            <div class="tab-pane " id="tabs-status-4"></div> <!-- 列表 阅读模式 -->
+            <div class="tab-pane " id="tabs-status-5"></div> <!-- 网格 阅读模式 -->
+            <div class="tab-pane " id="tabs-status-6"></div> <!-- 时间线 阅读模式 -->
 
-            <!-- 设置 标签内容开始 -->
-            <div class="tab-pane " id="tabs-setting">
-            	<p>  SETTING  </p>
-            </div><!-- 设置 标签内容结束 -->
 
         </div> <!-- TAB正文 结束 -->
 
