@@ -105,6 +105,17 @@
                     </a>
                 </li> <!-- 基本信息general 标签菜单结束 -->
 
+                <!-- 列表呈现选项 标签菜单开始 -->
+                <li  >
+                    <a id="TAB_14671164784783499" 
+                       href="#tabs-list"  
+                       data-remote="<?=App::NR('Datatype','listoption', $query)?>">
+                        <i class="fa fa-list-ul"></i> 
+                        <span class="font-w300" > 列表选项 </span>
+                    </a>
+                </li> <!-- 列表呈现选项 标签菜单结束 -->
+
+
                 <!-- 移动应用app 标签菜单开始 -->
                 <li  >
                     <a id="TAB_14671164784783490" 
@@ -147,6 +158,9 @@
                 <!-- 基本信息general 标签内容开始 -->
                 <div class="tab-pane active" id="tabs-general"><?=App::NRUN('Datatype','general', $query)?></div><!-- 基本信息general 标签内容结束 -->
                 
+                <!-- 列表呈现选项 标签内容开始 -->
+                <div class="tab-pane " id="tabs-list"></div><!-- 列表呈现选项 标签内容结束 -->
+
                 <!-- 移动应用app 标签内容开始 -->
                 <div class="tab-pane " id="tabs-app"></div><!-- 移动应用app 标签内容结束 -->
                 

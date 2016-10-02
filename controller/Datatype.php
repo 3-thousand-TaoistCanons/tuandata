@@ -369,6 +369,43 @@ class DatatypeController extends \Tuanduimao\Loader\Controller {
 		echo json_encode($resp);
 	}
 
+
+	/**
+	 * 标签页( 列表配置选项 )
+	 * @param $_GET['id'] Datatype::_id
+	 * @param $_GET['tid'] Datatype::typeid
+	 */
+	function listoption(){
+		
+		$data = [];
+		$datatype = App::M('Datatype');
+
+		$_id = (isset($_GET['id']) && !empty($_GET['id'])) ? $_GET['id'] : null;
+		if  ( $_id == null ) {
+			$typeid = (isset($_GET['tid']) && !empty($_GET['tid'])) ? $_GET['tid'] : null;
+			$_id = $datatype->uniqueToID('typeid', $typeid );
+		}
+
+		if ( $_id !== null && !isset($data['inst']) ) {
+			$data['inst'] = $datatype->get($_id);
+			if ( $data['inst'] == null ) {
+				$e = new Excp( '系统错误,请联系管理员。', '500', ['_id'=>$_id]);
+				$e->log();
+				echo $e->toJSON();
+				return;
+			}
+
+			if ( method_exists($datatype, 'format') ) {
+				$datatype->format($data['inst']);
+			}
+		} 
+
+
+		App::render($data, 'H5/datatype/tabs','list');
+	}
+
+
+
 	/**
 	 * 类型管理入口菜单 
 	 * @return [type] [description]

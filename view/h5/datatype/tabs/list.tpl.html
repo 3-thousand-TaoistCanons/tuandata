@@ -2,8 +2,8 @@
  <div class="block-content"
 	 data-toggle="slimscroll" 
      data-height="screen-height"
-     data-offset='260'
-     id="TAB_14671151760376891_BLOCK" 
+     data-offset='160'
+     id="TAB_LIST_SETTING_BLOCK" 
 >
 
 
@@ -17,7 +17,7 @@
 		<!-- 列表标签  组件单行文本 (inlinetext)-->
 		<div class="col-lg-9 col-md-9 col-md-9 col-xs-9"> 
 		 	<div class="input-group">
-		 		<div class="input-group-addon font-w300">列表标签</div> 
+		 		<div class="input-group-addon font-w300">列表选项卡</div> 
 		      	<select 
 				    id="ID_14671162108074461" name="readable[]"
 				    class="js-select2 form-control" 
@@ -29,12 +29,12 @@
 		</div>
 
 		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
-			<button class="btn btn-primary  pull-right font-w300" type="button"><i class="fa fa-plus"></i> 添加标签 </button>
+			<button class="btn btn-primary  pull-right font-w300" type="button"><i class="fa fa-plus"></i> 添加选项卡 </button>
 		</div>
-
 		<!-- END 列表标签  组件单行文本 (inlinetext)-->
-		
+
 	</div>
+
 
 	<div class="form-group">
 		<!-- 中文名称  组件单行文本 (inlinetext)-->
@@ -257,7 +257,7 @@
 	<!-- 默认呈现样式 -->
 	<div class="form-group">
 		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3 push-20-t push-20">
-			<button class="btn btn-primary  font-w300" type="button"><i class="fa fa-save"></i> 保存 </button>
+			<button class="btn btn-primary  font-w300" type="button"><i class="fa fa-save"></i> 保存标签 </button>
 		</div>
 	</div>
 
@@ -275,7 +275,7 @@
 							class="btn btn-primary font-w300  push-20-r  update"  
 						>
 				            <i class="fa fa-save push-5-r"></i> 
-							保存 
+							保存标签
 						</button>
 				</div>
 			</div>
@@ -294,14 +294,14 @@ $(function(){
 	App.initHelpers(['slimscroll', 'ajax-submit','select2']);
 
 	// 自动显示 QuickPanel
-    $('#TAB_14671151760376891_BLOCK').slimScroll().bind('slimscrolling', function(e, pos){
+    $('#TAB_LIST_SETTING_BLOCK').slimScroll().bind('slimscrolling', function(e, pos){
     	
     	var max =  e.target.scrollHeight - e.target.offsetHeight;
     	// console.log( max - pos );
     	if ( max - pos > 0 ) {
-    		$('.block-quickpanel', '#TAB_14671151760376891_BLOCK').removeClass('hidden').show();
+    		$('.block-quickpanel', '#TAB_LIST_SETTING_BLOCK').removeClass('hidden').show();
     	} else  {
-    		$('.block-quickpanel', '#TAB_14671151760376891_BLOCK').addClass('hidden').hide();
+    		$('.block-quickpanel', '#TAB_LIST_SETTING_BLOCK').addClass('hidden').hide();
     	}
     });
 
