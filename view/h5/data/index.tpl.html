@@ -15,119 +15,142 @@
 		        </div>
 	        </div>
 	        <div class="col-lg-4 col-md-4  col-sm-4">
-		        <button class="btn btn-primary btn-lg font-w300 pull-right" type="button"><i class="fa fa-plus"></i> 创建房源 </button>
+		        <button class="btn btn-primary btn-lg font-w300 pull-right data-create" 
+                    data-toggle-open="block-group"
+                    data-block="#data-create-panel"
+                type="button" ><i class="fa fa-plus"></i> 创建房源 </button>
 	        </div>
         </div>
     </div> <!-- END Section -->
 
+    <!-- Panel Group -->
+    <div class="block-group"> 
 
-	<!-- List Block  -->
-    <div class="block">    
-        <!-- TAB导航菜单 开始 -->
-        <ul class="nav nav-tabs nav-tabs-alt" id="data-list-h5" >
-         	<!-- 全部 标签菜单开始 -->
-            <li class="active">
-                <a id="tab-1" 
-                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'list'])?>"
-                   href="#tabs-status-0" >
-                    <i class="fa fa-list"></i> 
-                    <span class="font-w300" > 默认 </span>
-                </a>
-            </li> <!-- 全部 标签菜单结束 -->
-
-
-            <!-- 订阅一 标签菜单开始 -->
-            <li>
-                <a id="tab-2" 
-                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'grid'])?>"
-                   href="#tabs-status-1" >
-                    <i class="fa fa-list"></i> 
-                    <span class="font-w300" > 网格 </span>
-                </a>
-            </li> <!-- 订阅一 标签菜单结束 -->
+    	<!-- List Block  -->
+        <div class="block">    
+            <!-- TAB导航菜单 开始 -->
+            <ul class="nav nav-tabs nav-tabs-alt" id="data-list-h5" >
+             	<!-- 全部 标签菜单开始 -->
+                <li class="active">
+                    <a id="tab-1" 
+                       data-remote="<?=APP::NR('data','search', ['_list_style'=>'list'])?>"
+                       href="#tabs-status-0" >
+                        <i class="fa fa-list"></i> 
+                        <span class="font-w300" > 默认 </span>
+                    </a>
+                </li> <!-- 全部 标签菜单结束 -->
 
 
-            <!-- 订阅二 标签菜单开始 -->
-            <li>
-                <a id="tab-3" 
-                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'timeline'])?>"
-                   href="#tabs-status-2" >
-                    <i class="fa fa-list"></i> 
-                    <span class="font-w300" > 时间线 </span>
-                </a>
-            </li> <!-- 订阅二 标签菜单结束 -->
+                <!-- 订阅一 标签菜单开始 -->
+                <li>
+                    <a id="tab-2" 
+                       data-remote="<?=APP::NR('data','search', ['_list_style'=>'grid'])?>"
+                       href="#tabs-status-1" >
+                        <i class="fa fa-list"></i> 
+                        <span class="font-w300" > 网格 </span>
+                    </a>
+                </li> <!-- 订阅一 标签菜单结束 -->
 
 
-            <!-- 订阅二 标签菜单开始 -->
-            <li>
-                <a id="tab-4" 
-                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'list','_list_mode'=>'readonly'])?>"
-                   href="#tabs-status-3" >
-                    <i class="fa fa-list"></i> 
-                    <span class="font-w300" > 阅读 </span>
-                </a>
-            </li> <!-- 订阅二 标签菜单结束 -->
+                <!-- 订阅二 标签菜单开始 -->
+                <li>
+                    <a id="tab-3" 
+                       data-remote="<?=APP::NR('data','search', ['_list_style'=>'timeline'])?>"
+                       href="#tabs-status-2" >
+                        <i class="fa fa-list"></i> 
+                        <span class="font-w300" > 时间线 </span>
+                    </a>
+                </li> <!-- 订阅二 标签菜单结束 -->
 
 
-            <!-- 订阅二 标签菜单开始 -->
-            <li>
-                <a id="tab-5" 
-                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'timeline','_list_mode'=>'readonly'])?>"
-                   href="#tabs-status-4" >
-                    <i class="fa fa-list"></i> 
-                    <span class="font-w300" > 阅读网格 </span>
-                </a>
-            </li> <!-- 订阅二 标签菜单结束 -->
+                <!-- 订阅二 标签菜单开始 -->
+                <li>
+                    <a id="tab-4" 
+                       data-remote="<?=APP::NR('data','search', ['_list_style'=>'list','_list_mode'=>'readonly'])?>"
+                       href="#tabs-status-3" >
+                        <i class="fa fa-list"></i> 
+                        <span class="font-w300" > 阅读 </span>
+                    </a>
+                </li> <!-- 订阅二 标签菜单结束 -->
 
-            <!-- 订阅二 标签菜单开始 -->
-            <li>
-                <a id="tab-6" 
-                   data-remote="<?=APP::NR('data','search', ['_list_style'=>'timeline','_list_mode'=>'readonly'])?>"
-                   href="#tabs-status-5" >
-                    <i class="fa fa-list"></i> 
-                    <span class="font-w300" > 阅读时间线 </span>
-                </a>
-            </li> <!-- 订阅二 标签菜单结束 -->
 
-			
-			<!-- 右侧: 全屏 -->
-            <li class="pull-right">
-                <a href="#" type="button" class="except" data-toggle="block-option" data-action="fullscreen_toggle"></a>
-            </li> <!-- END 右侧: 全屏 -->
+                <!-- 订阅二 标签菜单开始 -->
+                <li>
+                    <a id="tab-5" 
+                       data-remote="<?=APP::NR('data','search', ['_list_style'=>'timeline','_list_mode'=>'readonly'])?>"
+                       href="#tabs-status-4" >
+                        <i class="fa fa-list"></i> 
+                        <span class="font-w300" > 阅读网格 </span>
+                    </a>
+                </li> <!-- 订阅二 标签菜单结束 -->
 
-        </ul> <!-- TAB导航菜单 结束 -->
-	
-		<!-- TAB正文 开始 -->
-		<div class="block-content tab-content">
-            <div class="tab-pane hide" id="tab-pane-error" >
-                <div class="alert alert-danger push-50-l push-50-r push-20-t ">
-                    <h3 class="font-w300 push-15">载入失败</h3>
-                    <p>{HTML}</p>
+                <!-- 订阅二 标签菜单开始 -->
+                <li>
+                    <a id="tab-6" 
+                       data-remote="<?=APP::NR('data','search', ['_list_style'=>'timeline','_list_mode'=>'readonly'])?>"
+                       href="#tabs-status-5" >
+                        <i class="fa fa-list"></i> 
+                        <span class="font-w300" > 阅读时间线 </span>
+                    </a>
+                </li> <!-- 订阅二 标签菜单结束 -->
+
+    			
+    			<!-- 右侧: 全屏 -->
+                <li class="pull-right">
+                    <a href="#" type="button" class="except" data-toggle="block-option" data-action="fullscreen_toggle"></a>
+                </li> <!-- END 右侧: 全屏 -->
+
+            </ul> <!-- TAB导航菜单 结束 -->
+    	
+    		<!-- TAB正文 开始 -->
+    		<div class="block-content tab-content">
+                <div class="tab-pane hide" id="tab-pane-error" >
+                    <div class="alert alert-danger push-50-l push-50-r push-20-t ">
+                        <h3 class="font-w300 push-15">载入失败</h3>
+                        <p>{HTML}</p>
+                    </div>
+                    <div class="row"  style="min-height:300px;" ></div>
                 </div>
-                <div class="row"  style="min-height:300px;" ></div>
-            </div>
 
-     
-            <!-- 基本信息general 标签内容开始 -->
-            <div class="tab-pane active" id="tabs-status-0">
-            	<?=APP::NRUN('data','search', ['status'=>'all'])?>
-            </div><!-- 基本信息general 标签内容结束 -->
+         
+                <!-- 基本信息general 标签内容开始 -->
+                <div class="tab-pane active" id="tabs-status-0">
+                	<?=APP::NRUN('data','search', ['status'=>'all'])?>
+                </div><!-- 基本信息general 标签内容结束 -->
 
-            <!--  标签内容开始 -->
-            <div class="tab-pane " id="tabs-status-1"></div> <!-- 列表 管理模式 -->
-            <div class="tab-pane " id="tabs-status-2"></div> <!-- 网格 管理模式 -->
-            <div class="tab-pane " id="tabs-status-3"></div> <!-- 时间线 管理模式 -->
-            <div class="tab-pane " id="tabs-status-4"></div> <!-- 列表 阅读模式 -->
-            <div class="tab-pane " id="tabs-status-5"></div> <!-- 网格 阅读模式 -->
-            <div class="tab-pane " id="tabs-status-6"></div> <!-- 时间线 阅读模式 -->
+                <!--  标签内容开始 -->
+                <div class="tab-pane " id="tabs-status-1"></div> <!-- 列表 管理模式 -->
+                <div class="tab-pane " id="tabs-status-2"></div> <!-- 网格 管理模式 -->
+                <div class="tab-pane " id="tabs-status-3"></div> <!-- 时间线 管理模式 -->
+                <div class="tab-pane " id="tabs-status-4"></div> <!-- 列表 阅读模式 -->
+                <div class="tab-pane " id="tabs-status-5"></div> <!-- 网格 阅读模式 -->
+                <div class="tab-pane " id="tabs-status-6"></div> <!-- 时间线 阅读模式 -->
 
 
-        </div> <!-- TAB正文 结束 -->
+            </div> <!-- TAB正文 结束 -->
 
-    </div> <!-- End List Block  -->
+        </div> <!-- End Tabs  -->
+        
+        
+        <!-- Create Form  -->
+        <div 
+            id="data-create-panel"
+            class="block block-slider block-left" 
+            data-offset='80'
+            option-autoclose='0'
+            option-duration='600'
+        > 
+            <div class="block-content"> 
+                创建表单   
+                <button class="btn btn-sm btn-primary" data-toggle="block-group" data-block="#data-create-panel" > 关闭窗口 </button>
+            </div>  
+        </div> <!-- End Create Form  -->
+
+    </div> <!-- End Block Group -->
+
 </div> <!-- END Page Content -->
 
 <script type="text/javascript">
-	App.initHelpers(['slimscroll', 'ajax-submit']);
+	App.initHelpers(['slimscroll', 'ajax-submit','block-group']);
     App.initHelper('nav-tabs', {'id':'#data-list-h5'});
 </script>
