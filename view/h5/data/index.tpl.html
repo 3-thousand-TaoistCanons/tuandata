@@ -6,13 +6,15 @@
     <div class="block block-transparent">
     	<div class="row" >
 	    	<div  class="col-lg-8 col-md-8 col-sm-8">
-		        <div class="input-group input-group-lg">
-		            <div class="input-group-addon font-w300">类型搜索</div> 
+		        
+                <div class="input-group input-group-lg">
+		            <div class="input-group-addon font-w300"> 全文检索 </div> 
 		            <input class="js-icon-search form-control" type="text" placeholder="输入关键词">
 		            <span class="input-group-btn">
 		                <button class="btn btn-primary font-w300" type="button"><i class=" si si-magnifier"></i> 搜索 </button>
 		            </span>
 		        </div>
+                
 	        </div>
 	        <div class="col-lg-4 col-md-4  col-sm-4">
 		        <button class="btn btn-primary btn-lg font-w300 pull-right data-create" 
@@ -139,19 +141,50 @@
             data-offset='80'
             option-autoclose='0'
             option-duration='600'
-            
-        > 
+        >
             <div class="block-content"> 
                 创建表单   
                 <button class="btn btn-sm btn-primary" data-toggle="block-group" data-block="#data-create-panel" > 关闭窗口 </button>
-            </div>  
+            </div>
+
         </div> <!-- End Create Form  -->
+
+        <!-- Modify Form  -->
+        <div 
+            id="data-view-panel"
+            class="block block-slider block-left" 
+            data-offset='80'
+            option-autoclose='1'
+            option-duration='600'
+        > 
+            <div class="block-content"> 
+                浏览数据   
+                <button class="btn btn-sm btn-primary" data-toggle="block-group" data-block="#data-view-panel" > 关闭窗口 </button>
+            </div>  
+        </div> <!-- End Modify Form  -->
+
+
+        <!-- Search More   -->
+        <div 
+            id="data-search-panel"
+            class="block block-slider block-left" 
+            data-offset='200'
+            option-autoclose='0'
+            option-duration='300'
+        > 
+            <div class="block-content"> 
+                高级搜索   
+                <button class="btn btn-sm btn-primary" data-toggle="block-group" data-block="#data-search-panel" > 立即搜索 </button>
+            </div>
+        </div> <!-- End Search More   -->
+
+
 
     </div> <!-- End Block Group -->
 
 </div> <!-- END Page Content -->
 
 <script type="text/javascript">
-	App.initHelpers(['slimscroll', 'ajax-submit','block-group']);
+	App.initHelpers(['slimscroll','ajax-submit','block-group']);
     App.initHelper('nav-tabs', {'id':'#data-list-h5'});
 </script>

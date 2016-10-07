@@ -1,0 +1,223 @@
+<div class="row items-push remove-margin">
+    <div class="col-xs-7">
+        <span class="text-muted font-s13"> 共找到 386条 符合条件的数据 <?=var_dump($_GET)?> </span>
+        
+    </div>
+    
+    <div class="col-xs-5">
+        <div class="btn-toolbar pull-right text-center" role="toolbar">
+            
+            <div class="btn-group" role="group">
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"> 
+                    <i class="glyphicon glyphicon-sort-by-order"></i> 创建时间  <span class="caret"></span> 
+                </button>
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li class="dropdown-header">请选择排序方式</li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order"></i> 创建时间升序
+                        </a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order-alt"></i> 创建时间降序
+                        </a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order"></i> 姓名升序
+                        </a>
+                    </li>
+                     <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order-alt"></i> 姓名降序
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group" role="group">
+                <button class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-th"></i> 字段  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-left dropdown-notclose" >
+                    <li class="dropdown-header">请选择字段</li>
+                    <li>
+                        <div class="col-xs-12">
+                            <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary" style="width:100%;">
+                                <input type="checkbox"><span></span> 编号 
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-xs-12">
+                            <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary" style="width:100%;">
+                                <input type="checkbox" checked><span></span> 小区 
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-xs-12">
+                            <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary" style="width:100%;">
+                                <input type="checkbox" checked><span></span> 单元 
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-xs-12">
+                            <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary" style="width:100%;">
+                                <input type="checkbox" checked><span></span> 详细地址 
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="btn-group" role="group">
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" > 
+                    <i class="glyphicon glyphicon-th-list"></i> 列表 <span class="caret"></span> 
+                </button>
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li class="dropdown-header">请选择呈现样式</li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-th-list"></i> 列表
+                        </a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-th-large"></i> 网格
+                        </a>
+                    </li>
+
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-time"></i> 时间线
+                        </a>
+                    </li>
+
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-credit-card"></i> 卡片
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+            <div class="btn-group" role="group">
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" > 
+                    <i class="glyphicon glyphicon-wrench"></i> 阅读 <span class="caret"></span> 
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li class="dropdown-header">请选择呈现模式</li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-list-alt"></i> 阅读
+                        </a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-cog"></i> 管理
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="btn btn-default btn-xs pull-right" type="button" 
+                data-toggle="block-group"
+                data-block="#data-search-panel"
+            > 
+                <i class="glyphicon glyphicon-filter"></i> 搜索工具
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<table class="js-table-checkable table table-hover remove-margin">
+	<thead>
+		<tr>
+			<th class="text-center" style="width: 60px;">
+                <label class="css-input css-checkbox css-checkbox-primary remove-margin-t remove-margin-b">
+                    <input type="checkbox" id="check-all"  name="check-all"><span></span>
+                </label>
+            </th>
+            
+			<th class="font-w300" style="width:15%;min-width:150px;">小区</th>
+			<th class="font-w300" style="width:15%;min-width:200px;">单元</th>
+			<th class="font-w300" style="width:40%;">详细地址</th>
+			<th class="font-w300" style="width:20%;">管理</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php for ($i=0; $i<10; $i++) :?>
+		<tr valign="" >
+            <td class="text-center" >
+                <label class="css-input css-checkbox css-checkbox-primary">
+                    <input type="checkbox" id="row_<?=$i?>"  name="row_<?=$i?>"><span></span>
+                </label>
+            </td>
+
+			<td> 颐和花园 </td>
+	        <td> 3号楼4单元403</td>
+	        <td> 北京市丰台区颐和花园3号楼4单元402</td>
+	        <td>    
+	        	<button  class="btn btn-sm btn-default push-20-r " type="button" > 修改</button>
+	        	<button  class="btn btn-sm btn-danger push-20-r " type="button" > 删除</button>
+	        </td>
+        </tr>
+    	<?php endfor; ?>
+	</tbody>
+
+	<tfoot>
+		<tr><td colspan="5">
+			<nav class="pull-right">
+                <ul class="pagination ">
+                    <li class="disabled">
+                        <a href="javascript:void(0)"><i class="fa fa-angle-double-left"></i></a>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><i class="fa fa-angle-double-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
+		</td></tr>
+	</tfoot>
+</table>
+
+<script type="text/javascript">
+$(function(){
+	App.initHelpers('table-tools', { 
+        onchange: function ( selectedCheckboxs ){
+            if ( selectedCheckboxs.length == 0 ) {
+                $('#removeAllMember').hide();
+            } else {
+                $('#removeAllMember').show();
+            }
+        }
+    });
+
+
+    // 阻止选择菜单冒泡
+    $('.dropdown-menu.dropdown-notclose').click(function(event) {
+        event.stopPropagation();
+    });
+
+});
+</script>

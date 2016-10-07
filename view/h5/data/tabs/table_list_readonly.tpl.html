@@ -4,6 +4,8 @@
     </div>
     
     <div class="col-xs-5">
+
+        <!-- Toolbar -->
         <div class="btn-toolbar pull-right text-center" role="toolbar">
             
             <div class="btn-group" role="group">
@@ -122,41 +124,28 @@
                     </li>
                 </ul>
             </div>
-        </div>
-    </div>
-</div>
+
+        </div> <!-- END Toolbar -->
+    </div><!-- END col-xs-5 -->
+
+</div> <!-- END Row -->
 
 <table class="js-table-checkable table table-hover remove-margin">
 	<thead>
 		<tr>
-			<th class="text-center" style="width: 60px;">
-                <label class="css-input css-checkbox css-checkbox-primary remove-margin-t remove-margin-b">
-                    <input type="checkbox" id="check-all"  name="check-all"><span></span>
-                </label>
-            </th>
-            
-			<th class="font-w300" style="width:15%;min-width:150px;">小区</th>
+			<th class="font-w300 text-center" style="width:120px;max-width:120px;">编号</th>
+            <th class="font-w300" style="width:15%;min-width:150px;">小区</th>
 			<th class="font-w300" style="width:15%;min-width:200px;">单元</th>
-			<th class="font-w300" style="width:40%;">详细地址</th>
-			<th class="font-w300" style="width:20%;">管理</th>
+			<th class="font-w300" style="width:60%;">详细地址</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php for ($i=0; $i<10; $i++) :?>
-		<tr valign="" >
-            <td class="text-center" >
-                <label class="css-input css-checkbox css-checkbox-primary">
-                    <input type="checkbox" id="row_<?=$i?>"  name="row_<?=$i?>"><span></span>
-                </label>
-            </td>
-
-			<td> 颐和花园 </td>
+		<tr id="data-list-<?=$i?>" class="data-view">
+			<td class=" text-center"> <?=($i+100)?> </td>
+            <td> 颐和花园 </td>
 	        <td> 3号楼4单元403</td>
 	        <td> 北京市丰台区颐和花园3号楼4单元402</td>
-	        <td>    
-	        	<button  class="btn btn-sm btn-default push-20-r " type="button" > 修改</button>
-	        	<button  class="btn btn-sm btn-danger push-20-r " type="button" > 删除</button>
-	        </td>
         </tr>
     	<?php endfor; ?>
 	</tbody>
@@ -208,6 +197,11 @@ $(function(){
     // 阻止选择菜单冒泡
     $('.dropdown-menu.dropdown-notclose').click(function(event) {
         event.stopPropagation();
+    });
+
+    $('.data-view').click(function(event) {
+        console.log( $(this).attr('id') );
+        $('#data-view-panel').open();
     });
 
 });

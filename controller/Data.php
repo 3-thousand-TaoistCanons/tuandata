@@ -79,6 +79,9 @@ class DataController extends \Tuanduimao\Loader\Controller {
         		'js/plugins/select2/select2.full.js',
         		'js/plugins/jquery-quicksearch/jquery.quicksearch.js',
         		'js/plugins/multi-select/js/jquery.multi-select.js',
+
+        		// Page JS 
+        		App::$APP_HOME_STATIC . '/static/js/page.js',
         	],
 
         	'css'=> [
@@ -102,8 +105,14 @@ class DataController extends \Tuanduimao\Loader\Controller {
 	 * @return [type] [description]
 	 */
 	function search() {
+		
+		$ls = (isset($_GET['_list_style']) ) ? '_' . trim($_GET['_list_style']) : '_list';
+		$lm = (isset($_GET['_list_mode']) ) ? '_' .trim($_GET['_list_mode']) : '';
+		$tpl = "table{$ls}{$lm}";
+
 		$data = [];
-		App::render($data, 'h5/data/tabs', 'table' );
+		App::render($data, 'h5/data/tabs', $tpl );
+
 	}
 
 }
