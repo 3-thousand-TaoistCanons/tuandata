@@ -7,35 +7,107 @@
         <div class="btn-toolbar pull-right text-center" role="toolbar">
             
             <div class="btn-group" role="group">
-                <button class="btn btn-default btn-xs" type="button"> <i class="glyphicon glyphicon-sort-by-order"></i> 创建时间  <span class="caret"></span> </button>
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"> 
+                    <i class="glyphicon glyphicon-sort-by-order"></i> 创建时间  <span class="caret"></span> 
+                </button>
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li class="dropdown-header">请选择排序方式</li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order"></i> 创建时间倒序
+                        </a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order"></i> 创建时间正序
+                        </a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order"></i> 姓名
+                        </a>
+                    </li>
+                </ul>
             </div>
 
             <div class="btn-group" role="group">
                 <button class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown">
                     <i class="glyphicon glyphicon-th"></i> 显示字段  <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-right">
-                    <li class="dropdown-header">Profile</li>
+                <ul class="dropdown-menu dropdown-menu-right dropdown-notclose" >
+                    <li class="dropdown-header">请选择字段</li>
                     <li>
-                        <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">3</span>News</a>
+                        <div class="col-xs-12">
+                            <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary" style="width:100%;">
+                                <input type="checkbox"><span></span> 编号 
+                            </label>
+                        </div>
                     </li>
                     <li>
-                        <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">1</span>Messages</a>
+                        <div class="col-xs-12">
+                            <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary" style="width:100%;">
+                                <input type="checkbox" checked><span></span> 小区 
+                            </label>
+                        </div>
                     </li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">More</li>
                     <li>
-                        <a tabindex="-1" href="javascript:void(0)">Edit Profile..</a>
+                        <div class="col-xs-12">
+                            <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary" style="width:100%;">
+                                <input type="checkbox" checked><span></span> 单元 
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="col-xs-12">
+                            <label class="css-input css-checkbox css-checkbox-sm css-checkbox-primary" style="width:100%;">
+                                <input type="checkbox" checked><span></span> 详细地址 
+                            </label>
+                        </div>
                     </li>
                 </ul>
             </div>
 
             <div class="btn-group" role="group">
-                <button class="btn btn-default btn-xs" type="button"> <i class="glyphicon glyphicon-list-alt"></i> 列表呈现  <span class="caret"></span> </button>
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" > 
+                    <i class="glyphicon glyphicon-list-alt"></i> 列表呈现  <span class="caret"></span> 
+                </button>
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li class="dropdown-header">请选择呈现样式</li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-list-alt"></i> 列表呈现
+                        </a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order"></i> 网格呈现
+                        </a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order"></i> 时间线
+                        </a>
+                    </li>
+                </ul>
             </div>
 
             <div class="btn-group" role="group">
-                <button class="btn btn-default btn-xs" type="button"> <i class="glyphicon glyphicon-wrench"></i> 阅读模式 </button>
+                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" > 
+                    <i class="glyphicon glyphicon-wrench"></i> 阅读模式 <span class="caret"></span> 
+                </button>
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li class="dropdown-header">请选择呈现模式</li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-list-alt"></i> 阅读模式
+                        </a>
+                    </li>
+                    <li>
+                        <a tabindex="-1" href="javascript:void(0)">
+                           <i class="glyphicon glyphicon-sort-by-order"></i> 管理模式
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -118,5 +190,12 @@ $(function(){
             }
         }
     });
+
+
+    // 阻止选择菜单冒泡
+    $('.dropdown-menu.dropdown-notclose').click(function(event) {
+        event.stopPropagation();
+    });
+
 });
 </script>
