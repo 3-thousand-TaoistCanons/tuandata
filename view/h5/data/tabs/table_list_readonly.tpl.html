@@ -39,7 +39,7 @@
 
             <div class="btn-group" role="group">
                 <button class="btn btn-default  btn-xs dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-th"></i> 显示字段  <span class="caret"></span>
+                    <i class="glyphicon glyphicon-th"></i> 字段  <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-left dropdown-notclose" >
                     <li class="dropdown-header">请选择字段</li>
@@ -76,7 +76,7 @@
 
             <div class="btn-group" role="group">
                 <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" > 
-                    <i class="glyphicon glyphicon-th-list"></i> 列表呈现  <span class="caret"></span> 
+                    <i class="glyphicon glyphicon-th-list"></i> 列表  <span class="caret"></span> 
                 </button>
                 <ul class="dropdown-menu dropdown-menu-left">
                     <li class="dropdown-header">请选择呈现样式</li>
@@ -108,22 +108,29 @@
 
             <div class="btn-group" role="group">
                 <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" > 
-                    <i class="glyphicon glyphicon-wrench"></i> 阅读模式 <span class="caret"></span> 
+                    <i class="glyphicon glyphicon-wrench"></i> 阅读 <span class="caret"></span> 
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li class="dropdown-header">请选择呈现模式</li>
                     <li>
                         <a tabindex="-1" href="javascript:void(0)">
-                           <i class="glyphicon glyphicon-list-alt"></i> 阅读模式
+                           <i class="glyphicon glyphicon-list-alt"></i> 阅读
                         </a>
                     </li>
                     <li>
                         <a tabindex="-1" href="javascript:void(0)">
-                           <i class="glyphicon glyphicon-cog"></i> 管理模式
+                           <i class="glyphicon glyphicon-cog"></i> 管理
                         </a>
                     </li>
                 </ul>
             </div>
+
+            <button class="btn btn-default btn-xs pull-right" type="button" 
+                data-toggle="block-group"
+                data-block="#data-search-panel"
+            > 
+                <i class="glyphicon glyphicon-filter"></i> 搜索工具
+            </button>
 
         </div> <!-- END Toolbar -->
     </div><!-- END col-xs-5 -->
@@ -183,6 +190,8 @@
 
 <script type="text/javascript">
 $(function(){
+    App.initHelpers(['block-group']);
+    
 	App.initHelpers('table-tools', { 
         onchange: function ( selectedCheckboxs ){
             if ( selectedCheckboxs.length == 0 ) {
